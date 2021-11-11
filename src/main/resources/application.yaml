@@ -1,0 +1,74 @@
+spring:
+  profiles:
+    active: MAIN
+server:
+  port: 8080
+app:
+  query:
+    geocode:
+      type: COORDS
+      url: https://geocode.xyz
+      query:
+        region: ES
+        geoit: json
+        auth: 137805201807381217235x62723
+    travelpayouts:
+      type: NAME
+      url: http://autocomplete.travelpayouts.com/places2
+      query:
+        locale: ES
+        types[]: city
+  service:
+    openweathermap:
+      type: WEATHER
+      name: Clima
+      description: Informacion actual sobre el estado metrológico
+      icon: http://openweathermap.org/img/wn/{icon}@2x.png
+      url: https://api.openweathermap.org/data/2.5/onecall
+      query:
+        lang: ES
+        units: metric
+        exclude: current,minutely,hourly,alerts
+        appid: bb4f6eaa03d8741b67f9d37138cf28d9
+    ticketmaster:
+      type: EVENTS
+      name: Eventos
+      description: Informacion diaria sobre eventos proximos
+      url: https://app.ticketmaster.com/discovery/v2/events.json
+      query:
+        unit: km
+        local: ES
+        radius: 100
+        countyCode: ES
+        apikey: oun77uH0nt2TtvqJCywGlPOw7kHlvEDu
+    currents:
+      type: NEWS
+      name: Noticias
+      description: Informacion diaria sobre las noticias del último momento
+      url: https://api.currentsapi.services/v1/latest-news
+      query:
+        region: ES
+        language: ES
+        apiKey: _61AlwKSSuQHGF8SqtmFhVpPgiAuUCLjLmlNnNKLYiAZ-0f3
+---
+spring:
+  config:
+    activate:
+      on-profile: MAIN
+  datasource:
+    url: jdbc:h2:file:./database
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+---
+spring:
+  config:
+    activate:
+      on-profile: TEST
+  datasource:
+    url: jdbc:h2:mem:database;DB_CLOSE_DELAY=-1
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
