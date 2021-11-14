@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>es.uji.team</groupId>
     <artifactId>project</artifactId>
-    <version>0.0.1</version>
+    <version>0.2.0</version>
     <packaging>jar</packaging>
     <name>Proyecto ATTD</name>
     <parent>
@@ -61,20 +61,36 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>5.2.7.RELEASE</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <aspectLibraries>
+                        <aspectLibrary>
+                            <groupId>org.springframework</groupId>
+                            <artifactId>spring-aspects</artifactId>
+                        </aspectLibrary>
+                    </aspectLibraries>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.jcabi</groupId>
                 <artifactId>jcabi-maven-plugin</artifactId>
                 <version>0.14.1</version>
+                <configuration>
+                    <disableCopy>true</disableCopy>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>compile aspects</id>
+                        <id>aspects-compile</id>
                         <goals>
                             <goal>ajc</goal>
                         </goals>
@@ -88,11 +104,20 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>app/test/**</include>
+                    </includes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>
         <profile>
-            <id>webapp integration</id>
+            <id>webapp</id>
             <activation>
                 <file>
                     <exists>src/main/webapp/package.json</exists>
@@ -119,21 +144,21 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <id>install javascript</id>
+                                <id>web-install</id>
                                 <phase>initialize</phase>
                                 <goals>
                                     <goal>install-node-and-npm</goal>
                                 </goals>
                             </execution>
                             <execution>
-                                <id>install dependencies</id>
+                                <id>web-resources</id>
                                 <phase>process-resources</phase>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
                             </execution>
                             <execution>
-                                <id>compile javascript</id>
+                                <id>web-compile</id>
                                 <phase>compile</phase>
                                 <goals>
                                     <goal>npm</goal>

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,25 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.api.service.generic.ServiceType;
 import app.controller.generic.BaseController;
 import app.error.MissingError;
-import app.manager.QueryManager;
-import app.manager.ServiceManager;
 import app.model.LocationModel;
-import app.rest.service.generic.ServiceType;
 
 @RestController
 @RequestMapping("/services")
 public class ServiceController extends BaseController {
-    @Autowired protected ServiceManager services;
-    @Autowired protected QueryManager queries;
-
     @GetMapping
     public Object getServices(HttpSession rawSession) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         var userServices = user.getServices();
-        return services.getServices().stream().map(service -> {
+        return serviceManager.getServices().stream().map(service -> {
             var type = service.getType();
             var active = userServices.contains(type);
             return Map.of("service", service, "active", active);
@@ -60,7 +54,7 @@ public class ServiceController extends BaseController {
         try {
             location = user.getLocation(query);
         } catch (MissingError ignored) {
-            location = queries.getData(query);
+            location = queryManager.getData(query);
             location.setServices(user.getServices());
         }
         return location;
@@ -73,7 +67,7 @@ public class ServiceController extends BaseController {
         var location = getLocation(query);
         var locationServices = location.getServices();
         return user.getServices().stream().parallel().map(type -> {
-            var service = services.getService(type);
+            var service = serviceManager.getService(type);
             var active = locationServices.contains(type);
             Object data = false;
             if (active) try {

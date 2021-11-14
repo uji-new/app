@@ -13,36 +13,35 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import app.model.generic.BaseModel;
-import lombok.Data;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
-@Data
+@Getter
 class LocationId implements Serializable {
-    UserModel user;
+    private UserModel user;
     private double latitude;
     private double longitude;
 }
 
-@Data
 @Entity
 @NoArgsConstructor
 @IdClass(LocationId.class)
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 public class LocationModel extends BaseModel implements Comparable<LocationModel> {
-    @Id @ManyToOne(fetch = FetchType.LAZY) @ToString.Exclude @JsonIgnore private UserModel user;
-    @Id private double latitude;
-    @Id private double longitude;
-    @EqualsAndHashCode.Include private String name;
-    private String alias;
+    @Id @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore @Setter(AccessLevel.PROTECTED) private UserModel user;
+    @Id @Getter private double latitude;
+    @Id @Getter private double longitude;
+    @EqualsAndHashCode.Include @Getter private String name;
+    @Setter @Getter private String alias;
 
-    public LocationModel(double latitude, double longitude, String name) {
-        setName(name);
-        setAlias(name);
-        setLatitude(latitude);
-        setLongitude(longitude);
+    public LocationModel(String name, double latitude, double longitude) {
+        this.name = name;
+        this.alias = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @EqualsAndHashCode.Include

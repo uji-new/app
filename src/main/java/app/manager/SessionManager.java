@@ -7,9 +7,7 @@ import javax.servlet.http.HttpSession;
 import app.manager.generic.SessionProperty;
 import app.model.UserModel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
 @AllArgsConstructor
 public class SessionManager {
     private HttpSession session;
@@ -19,21 +17,21 @@ public class SessionManager {
     }
 
     protected void put(SessionProperty key, Object value) {
-        getSession().setAttribute(getKeyName(key), value);
+        session.setAttribute(getKeyName(key), value);
     }
 
     protected <T> T get(SessionProperty key, Class<T> type) {
         var keyName = getKeyName(key);
-        var value = getSession().getAttribute(keyName);
+        var value = session.getAttribute(keyName);
         return Optional.ofNullable(value).map(type::cast).orElseThrow();
     }
 
     protected void remove(SessionProperty key) {
-        getSession().removeAttribute(getKeyName(key));
+        session.removeAttribute(getKeyName(key));
     }
 
     public void clear() {
-        getSession().invalidate();
+        session.invalidate();
     }
 
     public UserModel getUser() {

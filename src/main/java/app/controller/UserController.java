@@ -18,11 +18,18 @@ public class UserController extends BaseController {
     @PostMapping
     public void newUser(HttpSession rawSession, @RequestParam String mail, @RequestParam String password) {
         setSessionFrom(rawSession);
-        if (accounts.existsUser(mail))
-            throw new ConfilictError();
-        var user = accounts.newUser();
-        user.setMail(mail);
-        user.encryptAndSetPassword(password);
+        synchronized (mail.intern()) {
+            if (accountManager.existsUser(mail))
+                throw new ConfilictError();
+            var user = accountManager.newUser(mail, password);
+            saveUser(user);
+        }
+    }
+
+    @PostMapping("/guest")
+    public void newGuest(HttpSession rawSession) {
+        setSessionFrom(rawSession);
+        var user = accountManager.newGuest();
         saveUser(user);
     }
 
@@ -38,7 +45,7 @@ public class UserController extends BaseController {
     public void deleteUser(HttpSession rawSession) {
         setSessionFrom(rawSession);
         var user = session.getUser();
-        accounts.deleteUser(user.getMail());
+        accountManager.deleteUser(user.getMail());
         session.clear();
     }
 }

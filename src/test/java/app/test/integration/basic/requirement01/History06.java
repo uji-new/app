@@ -1,0 +1,48 @@
+package app.test.integration.basic.requirement01;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import static org.hamcrest.Matchers.equalTo;
+
+import org.springframework.http.HttpStatus;
+
+import app.model.LocationModel;
+import app.test.generic.BaseTest;
+
+import java.util.Collections;
+import java.util.List;
+
+// Como usuario quiero obtener las coordenadas geográficas de una ubicación a partir de su topónimo, con el fin de facilitar la obtención de información en múltiples fuentes públicas (API).
+public class History06 extends BaseTest {
+    @Test
+    public void valid() {
+        // Given
+        var name = "Castellon";
+        var location = new LocationModel(name, 39.980, -0.033);
+        var coords = location.getCoords();
+        Mockito.doReturn(List.of(location)).when(queryManager).getAllData(name);
+
+        // When
+        var response = queryClient.query(name);
+
+        // Then
+        response.statusCode(HttpStatus.OK.value());
+        response.body("size()", equalTo(1));
+        response.body("get(0).coords", equalTo(coords));
+    }
+
+    @Test
+    public void invalid() {
+        // Given
+        var name = "INVALIDO";
+        Mockito.doReturn(Collections.emptyList()).when(queryManager).getAllData(name);
+
+        // When
+        var response = queryClient.query(name);
+
+        // Then
+        response.statusCode(HttpStatus.OK.value());
+        response.body("size()", equalTo(0));
+    }
+}

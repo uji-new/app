@@ -1,6 +1,7 @@
 package app.model;
 
 import java.util.TreeSet;
+import java.util.Collections;
 import java.util.SortedSet;
 
 import javax.persistence.CascadeType;
@@ -8,46 +9,58 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
-import com.jcabi.aspects.Cacheable;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 
 import org.hibernate.annotations.SortNatural;
-import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 
 import app.error.AuthenticationError;
 import app.error.MissingError;
 import app.model.generic.BaseModel;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @Entity
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@Configurable(preConstruction = true)
+@JsonAutoDetect(getterVisibility = Visibility.NONE)
+@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 public class UserModel extends BaseModel {
-    @Id private String mail;
+    @Id @Getter @EqualsAndHashCode.Include @JsonProperty private String mail;
     private String password;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @SortNatural private SortedSet<LocationModel> locations = new TreeSet<>();
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @SortNatural private SortedSet<LocationModel> history = new TreeSet<>();
+    @Autowired @Transient private PasswordEncryptor passwordEncryptor;
+    @Setter @Getter @Transient private boolean guest = false;
 
-    @Cacheable(forever = true)
-    protected PasswordEncryptor getEncryptor() {
-        return new BasicPasswordEncryptor();
+    public UserModel(String mail, String password) {
+        this.mail = mail;
+        encryptAndSetPassword(password);
     }
 
     public void encryptAndSetPassword(String password) {
-        setPassword(getEncryptor().encryptPassword(password));
+        this.password = passwordEncryptor.encryptPassword(password);
     }
 
     public void validatePassword(String password) {
-        if (!getEncryptor().checkPassword(password, getPassword()))
+        if (!passwordEncryptor.checkPassword(password, this.password));
             throw new AuthenticationError();
     }
 
-    public LocationModel newLocation() {
-        return new LocationModel();
+    public SortedSet<LocationModel> getLocations() {
+        return Collections.unmodifiableSortedSet(locations);
+    }
+
+    public SortedSet<LocationModel> getHistory() {
+        return Collections.unmodifiableSortedSet(history);
     }
 
     public void addLocation(LocationModel location) {

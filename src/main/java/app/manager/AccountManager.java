@@ -2,7 +2,10 @@ package app.manager;
 
 import java.util.List;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
+import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import app.dao.UserDao;
@@ -13,8 +16,14 @@ import app.model.UserModel;
 public class AccountManager {
     @Autowired private UserDao userDao;
 
-    public UserModel newUser() {
-        return new UserModel();
+    public UserModel newGuest() {
+        var user = new UserModel();
+        user.setGuest(true);
+        return user;
+    }
+
+    public UserModel newUser(String mail, String password) {
+        return new UserModel(mail, password);
     }
 
     public boolean existsUser(String mail) {
@@ -30,10 +39,16 @@ public class AccountManager {
     }
 
     public void saveUser(UserModel user) {
-        userDao.save(user);
+        if (!user.isGuest())
+            userDao.save(user);
     }
 
     public void deleteUser(String mail) {
         userDao.deleteById(mail);
+    }
+
+    @Bean
+    public PasswordEncryptor newEncryptor() {
+        return new BasicPasswordEncryptor();
     }
 }

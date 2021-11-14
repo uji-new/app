@@ -7,14 +7,13 @@ import com.jcabi.aspects.Cacheable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.rest.service.generic.BaseService;
-import app.rest.service.generic.ServiceType;
-import lombok.Data;
+import app.api.service.generic.BaseService;
+import app.api.service.generic.ServiceType;
+import lombok.Getter;
 
-@Data
 @Service
 public class ServiceManager {
-    @Autowired private SortedSet<BaseService> services;
+    @Autowired @Getter private SortedSet<BaseService> services;
 
     @Cacheable(forever = true)
     public BaseService getService(ServiceType type) {
