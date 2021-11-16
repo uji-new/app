@@ -26,13 +26,6 @@ public class UserController extends BaseController {
         }
     }
 
-    @PostMapping("/guest")
-    public void newGuest(HttpSession rawSession) {
-        setSessionFrom(rawSession);
-        var user = accountManager.newGuest();
-        saveUser(user);
-    }
-
     @PutMapping
     public void updateUser(HttpSession rawSession, @RequestParam String password) {
         setSessionFrom(rawSession);

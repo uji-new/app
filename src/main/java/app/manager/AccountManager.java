@@ -18,7 +18,7 @@ public class AccountManager {
 
     public UserModel newGuest() {
         var user = new UserModel();
-        user.setGuest(true);
+        user.setTransient(true);
         return user;
     }
 
@@ -39,7 +39,7 @@ public class AccountManager {
     }
 
     public void saveUser(UserModel user) {
-        if (!user.isGuest())
+        if (!user.isTransient())
             userDao.save(user);
     }
 

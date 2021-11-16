@@ -29,6 +29,13 @@ public class SessionController extends BaseController {
         session.saveUser(user);
     }
 
+    @PostMapping("/guest")
+    public void newGuest(HttpSession rawSession) {
+        setSessionFrom(rawSession);
+        var user = accountManager.newGuest();
+        saveUser(user);
+    }
+
     @DeleteMapping
     public void deleteSession(HttpSession rawSession) {
         setSessionFrom(rawSession);
