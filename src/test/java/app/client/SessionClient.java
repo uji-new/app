@@ -13,8 +13,16 @@ public class SessionClient extends BaseClient {
         return super.setupRequest(prefixArgs("session", path));
     }
 
+    public ValidatableResponse getSession() {
+        return setupRequest().get().then();
+    }
+
     public ValidatableResponse newSession(String mail, String password) {
         return setupRequest().queryParam("mail", mail).queryParam("password", password).post().then();
+    }
+
+    public ValidatableResponse newGuest() {
+        return setupRequest("guest").post().then();
     }
 
     public ValidatableResponse deleteSession() {
