@@ -1,4 +1,4 @@
-# UJI - EI1039 & EI1048
+# App (backend + frontend submodule)
 ## Setup
 - Terminal: `git clone --recurse-submodules URL`
 - IDE: https://www.jetbrains.com/help/idea/manage-projects-hosted-on-github.html#clone-from-GitHub
@@ -12,5 +12,5 @@
 - Backend: `src/main/java`
 - Frontend: `src/main/webapp`
 ## Recommended software
-- IDE: IntelliJ IDEA 2021
-- JDK: 17 (https://jdk.java.net/17/)
+- JDK: 17 (https://jdk.java.net/17)
+- IDE: IntelliJ IDEA 2021 (https://www.jetbrains.com/idea)
