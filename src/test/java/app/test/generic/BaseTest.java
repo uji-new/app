@@ -13,8 +13,9 @@ import app.client.generic.Client;
 @ActiveProfiles("TEST")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class BaseTest {
-    @Autowired protected Client client;
     @Autowired protected Spy spy;
+    @Autowired protected Client client;
+    @LocalServerPort private int port;
 
     protected String getId(TestInfo info) {
         var history = info.getTestClass().orElseThrow().getName();
@@ -22,14 +23,10 @@ public abstract class BaseTest {
         return String.format("%s.%s", history, test);
     }
 
-    @Autowired
-    private void setPort(@LocalServerPort int port) {
-        client.setPort(port);
-    }
-
     @BeforeEach
     public void beforeEach(TestInfo info) {
         var id = getId(info);
+        client.setPort(port);
         client.setupSession();
         client.user.newUser(id, id);
     }
