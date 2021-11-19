@@ -33,7 +33,7 @@ public class ServiceController extends BaseController {
     }
 
     @PostMapping
-    public void newService(HttpSession rawSession, @RequestParam ServiceType type) {
+    public void newService(HttpSession rawSession, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         user.addService(type);
@@ -41,7 +41,7 @@ public class ServiceController extends BaseController {
     }
 
     @DeleteMapping
-    public void deleteService(HttpSession rawSession, @RequestParam ServiceType type) {
+    public void deleteService(HttpSession rawSession, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         user.removeService(type);
@@ -78,7 +78,7 @@ public class ServiceController extends BaseController {
     }
 
     @PostMapping("/{coords}")
-    public void newServiceForPlace(HttpSession rawSession, @PathVariable String coords, @RequestParam ServiceType type) {
+    public void newServiceForPlace(HttpSession rawSession, @PathVariable String coords, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         var location = user.getLocation(coords);
@@ -87,7 +87,7 @@ public class ServiceController extends BaseController {
     }
 
     @DeleteMapping("/{coords}")
-    public void deleteServiceForPlace(HttpSession rawSession, @PathVariable String coords, @RequestParam ServiceType type) {
+    public void deleteServiceForPlace(HttpSession rawSession, @PathVariable String coords, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         var location = user.getLocation(coords);

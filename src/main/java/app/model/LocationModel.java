@@ -38,6 +38,7 @@ public class LocationModel extends BaseModel implements Comparable<LocationModel
     @Setter @Getter private String alias;
 
     public LocationModel(String name, double latitude, double longitude) {
+        //this();
         this.name = name;
         this.alias = name;
         this.latitude = latitude;

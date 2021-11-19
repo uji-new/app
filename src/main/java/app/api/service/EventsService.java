@@ -19,7 +19,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
 
 @Service
-@ConfigurationProperties("app.service.ticketmaster")
+@ConfigurationProperties("app.api.ticketmaster")
 public class EventsService extends BaseService {
     @Override
     protected RequestSpecification setupRequest(LocationModel info) {

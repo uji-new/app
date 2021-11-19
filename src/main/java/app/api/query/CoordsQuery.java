@@ -13,7 +13,7 @@ import java.util.List;
 import com.jcabi.aspects.Cacheable;
 
 @Service
-@ConfigurationProperties("app.query.geocode")
+@ConfigurationProperties("app.api.geocode")
 public class CoordsQuery extends BaseQuery {
     @Override
     protected RequestSpecification setupRequest(String info) {

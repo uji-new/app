@@ -39,9 +39,10 @@ public class UserModel extends BaseModel {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @SortNatural private SortedSet<LocationModel> locations = new TreeSet<>();
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @SortNatural private SortedSet<LocationModel> history = new TreeSet<>();
     @Autowired @Transient private PasswordEncryptor passwordEncryptor;
-    @Setter @Getter @Transient private boolean Transient = false;
+    @Setter @Getter @JsonProperty @Transient private boolean Transient = false;
 
     public UserModel(String mail, String password) {
+        //this();
         this.mail = mail;
         encryptAndSetPassword(password);
     }

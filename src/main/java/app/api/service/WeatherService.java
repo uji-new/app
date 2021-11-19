@@ -16,7 +16,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
 
 @Service
-@ConfigurationProperties("app.service.openweathermap")
+@ConfigurationProperties("app.api.openweathermap")
 public class WeatherService extends BaseService {
     private String icon;
 

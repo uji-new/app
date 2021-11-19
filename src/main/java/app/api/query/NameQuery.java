@@ -15,7 +15,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
 
 @Service
-@ConfigurationProperties("app.query.travelpayouts")
+@ConfigurationProperties("app.api.travelpayouts")
 public class NameQuery extends BaseQuery {
     @Override
     protected RequestSpecification setupRequest(String info) {

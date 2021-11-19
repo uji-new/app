@@ -15,7 +15,7 @@ import app.model.LocationModel;
 import io.restassured.path.json.JsonPath;
 
 @Service
-@ConfigurationProperties("app.service.currents")
+@ConfigurationProperties("app.api.currents")
 public class NewsService extends BaseService {
     protected String getLocalQuery(String path) {
         return String.format("news.findAll{it.title.length() < it.description.length()}.%s", path);
