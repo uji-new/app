@@ -16,11 +16,11 @@ public class History01 extends BaseTest {
         var name = "Castellon";
 
         // When
-        var response = placeClient.newPlace(name, name);
+        var response = client.place.newPlace(name, name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        var state = placeClient.getPlaces();
+        var state = client.place.getPlaces();
         state.body("size()", equalTo(1));
     }
 
@@ -30,11 +30,11 @@ public class History01 extends BaseTest {
         var name = "INVALIDO";
 
         // When
-        var response = placeClient.newPlace(name, name);
+        var response = client.place.newPlace(name, name);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());
-        var state = placeClient.getPlaces();
+        var state = client.place.getPlaces();
         state.body("size()", equalTo(0));
     }
 }

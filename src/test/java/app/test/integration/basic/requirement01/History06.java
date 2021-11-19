@@ -21,10 +21,10 @@ public class History06 extends BaseTest {
         var name = "Castellon";
         var location = new LocationModel(name, 39.980, -0.033);
         var coords = location.getCoords();
-        Mockito.doReturn(List.of(location)).when(queryManager).getAllData(name);
+        Mockito.doReturn(List.of(location)).when(spy.queryManager).getAllData(name);
 
         // When
-        var response = queryClient.query(name);
+        var response = client.query.query(name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
@@ -36,10 +36,10 @@ public class History06 extends BaseTest {
     public void invalid() {
         // Given
         var name = "INVALIDO";
-        Mockito.doReturn(Collections.emptyList()).when(queryManager).getAllData(name);
+        Mockito.doReturn(Collections.emptyList()).when(spy.queryManager).getAllData(name);
 
         // When
-        var response = queryClient.query(name);
+        var response = client.query.query(name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());

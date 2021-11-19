@@ -17,18 +17,18 @@ public class History05 extends BaseTest {
         // Given
         var name = "Castellon";
         var location = new LocationModel(name, 39.980, -0.033);
-        Mockito.doReturn(location).when(queryManager).getData(name);
-        placeClient.newPlace(name, name);
-        var coords = placeClient.getPlaces().extract().jsonPath().getString("get(0).coords");
-        placeClient.deletePlace(coords);
+        Mockito.doReturn(location).when(spy.queryManager).getData(name);
+        client.place.newPlace(name, name);
+        var coords = client.place.getPlaces().extract().jsonPath().getString("get(0).coords");
+        client.place.deletePlace(coords);
 
         // When
-        var response = historyClient.newPlace(coords);
+        var response = client.history.newPlace(coords);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        var statePlaces = placeClient.getPlaces();
-        var stateHistory = historyClient.getPlaces();
+        var statePlaces = client.place.getPlaces();
+        var stateHistory = client.history.getPlaces();
         statePlaces.body("size()", equalTo(1));
         statePlaces.body("get(0).name", equalTo(name));
         stateHistory.body("size()", equalTo(0));
@@ -39,17 +39,17 @@ public class History05 extends BaseTest {
         // Given
         var name = "Castellon";
         var location = new LocationModel(name, 39.980, -0.033);
-        Mockito.doReturn(location).when(queryManager).getData(name);
-        placeClient.newPlace(name, name);
-        var coords = placeClient.getPlaces().extract().jsonPath().getString("get(0).coords");
+        Mockito.doReturn(location).when(spy.queryManager).getData(name);
+        client.place.newPlace(name, name);
+        var coords = client.place.getPlaces().extract().jsonPath().getString("get(0).coords");
 
         // When
-        var response = historyClient.newPlace(coords);
+        var response = client.history.newPlace(coords);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());
-        var statePlaces = placeClient.getPlaces();
-        var stateHistory = historyClient.getPlaces();
+        var statePlaces = client.place.getPlaces();
+        var stateHistory = client.history.getPlaces();
         statePlaces.body("size()", equalTo(1));
         statePlaces.body("get(0).name", equalTo(name));
         stateHistory.body("size()", equalTo(0));

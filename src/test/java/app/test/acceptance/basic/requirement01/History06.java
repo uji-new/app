@@ -16,7 +16,7 @@ public class History06 extends BaseTest {
         var name = "Castellon";
 
         // When
-        var response = queryClient.query(name);
+        var response = client.query.query(name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
@@ -29,7 +29,7 @@ public class History06 extends BaseTest {
         var name = "INVALIDO";
 
         // When
-        var response = queryClient.query(name);
+        var response = client.query.query(name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());

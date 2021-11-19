@@ -20,17 +20,17 @@ public class History03 extends BaseTest {
         var name = "Castellon";
         var type = ServiceType.WEATHER.name();
         var location = new LocationModel(name, 39.980, -0.033);
-        Mockito.doReturn(location).when(queryManager).getData(name);
-        serviceClient.newService(type);
-        placeClient.newPlace(name, name);
+        Mockito.doReturn(location).when(spy.queryManager).getData(name);
+        client.service.newService(type);
+        client.place.newPlace(name, name);
 
         name = "Valencia";
         location = new LocationModel(name, 39.980, -0.033);
-        Mockito.doReturn(location).when(queryManager).getData(name);
-        Mockito.doReturn(true).when(weatherService).getData(location);
+        Mockito.doReturn(location).when(spy.queryManager).getData(name);
+        Mockito.doReturn(true).when(spy.weatherService).getData(location);
 
         // When
-        var response = serviceClient.getServicesForPlace(name);
+        var response = client.service.getServicesForPlace(name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
@@ -43,10 +43,10 @@ public class History03 extends BaseTest {
     public void invalid() {
         // Given
         var name = "INVALIDO";
-        Mockito.doThrow(new MissingError()).when(queryManager).getData(name);
+        Mockito.doThrow(new MissingError()).when(spy.queryManager).getData(name);
 
         // When
-        var response = serviceClient.getServicesForPlace(name);
+        var response = client.service.getServicesForPlace(name);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());

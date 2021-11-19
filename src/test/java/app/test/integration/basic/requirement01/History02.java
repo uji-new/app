@@ -19,14 +19,14 @@ public class History02 extends BaseTest {
         var name = "Castellon";
         var location = new LocationModel(name, 39.980, -0.033);
         var coords = location.getCoords();
-        Mockito.doReturn(location).when(queryManager).getData(coords);
+        Mockito.doReturn(location).when(spy.queryManager).getData(coords);
 
         // When
-        var response = placeClient.newPlace(coords, name);
+        var response = client.place.newPlace(coords, name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        var state = placeClient.getPlaces();
+        var state = client.place.getPlaces();
         state.body("size()", equalTo(1));
         state.body("get(0).coords", equalTo(coords));
     }
@@ -36,14 +36,14 @@ public class History02 extends BaseTest {
         // Given
         var name = "INVALIDO";
         var coords = "180.0,360.0";
-        Mockito.doThrow(new MissingError()).when(queryManager).getData(coords);
+        Mockito.doThrow(new MissingError()).when(spy.queryManager).getData(coords);
 
         // When
-        var response = placeClient.newPlace(coords, name);
+        var response = client.place.newPlace(coords, name);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());
-        var state = placeClient.getPlaces();
+        var state = client.place.getPlaces();
         state.body("size()", equalTo(0));
     }
 }

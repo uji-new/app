@@ -17,11 +17,11 @@ public class History02 extends BaseTest {
         var coords = "39.978,-0.033";
 
         // When
-        var response = placeClient.newPlace(coords, name);
+        var response = client.place.newPlace(coords, name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        var state = placeClient.getPlaces();
+        var state = client.place.getPlaces();
         state.body("size()", equalTo(1));
     }
 
@@ -32,11 +32,11 @@ public class History02 extends BaseTest {
         var coords = "180.0,360.0";
 
         // When
-        var response = placeClient.newPlace(coords, name);
+        var response = client.place.newPlace(coords, name);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());
-        var state = placeClient.getPlaces();
+        var state = client.place.getPlaces();
         state.body("size()", equalTo(0));
     }
 }

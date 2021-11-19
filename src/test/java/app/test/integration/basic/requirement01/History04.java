@@ -21,13 +21,13 @@ public class History04 extends BaseTest {
         var type = ServiceType.WEATHER.name();
         var location = new LocationModel(name, 39.980, -0.033);
         var coords = location.getCoords();
-        Mockito.doReturn(location).when(queryManager).getData(coords);
-        Mockito.doReturn(true).when(weatherService).getData(location);
-        serviceClient.newService(type);
-        placeClient.newPlace(coords, name);
+        Mockito.doReturn(location).when(spy.queryManager).getData(coords);
+        Mockito.doReturn(true).when(spy.weatherService).getData(location);
+        client.service.newService(type);
+        client.place.newPlace(coords, name);
 
         // When
-        var response = serviceClient.getServicesForPlace(coords);
+        var response = client.service.getServicesForPlace(coords);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
@@ -39,10 +39,10 @@ public class History04 extends BaseTest {
     public void invalid() {
         // Given
         var coords = "180,360";
-        Mockito.doThrow(new MissingError()).when(queryManager).getData(coords);
+        Mockito.doThrow(new MissingError()).when(spy.queryManager).getData(coords);
 
         // When
-        var response = serviceClient.getServicesForPlace(coords);
+        var response = client.service.getServicesForPlace(coords);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());

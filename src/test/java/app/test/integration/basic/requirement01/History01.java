@@ -18,14 +18,14 @@ public class History01 extends BaseTest {
         // Given
         var name = "Castellon";
         var location = new LocationModel(name, 39.980, -0.033);
-        Mockito.doReturn(location).when(queryManager).getData(name);
+        Mockito.doReturn(location).when(spy.queryManager).getData(name);
 
         // When
-        var response = placeClient.newPlace(name, name);
+        var response = client.place.newPlace(name, name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        var state = placeClient.getPlaces();
+        var state = client.place.getPlaces();
         state.body("size()", equalTo(1));
         state.body("get(0).name", equalTo(name));
     }
@@ -34,14 +34,14 @@ public class History01 extends BaseTest {
     public void invalid() {
         // Given
         var name = "INVALIDO";
-        Mockito.doThrow(new MissingError()).when(queryManager).getData(name);
+        Mockito.doThrow(new MissingError()).when(spy.queryManager).getData(name);
 
         // When
-        var response = placeClient.newPlace(name, name);
+        var response = client.place.newPlace(name, name);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());
-        var state = placeClient.getPlaces();
+        var state = client.place.getPlaces();
         state.body("size()", equalTo(0));
     }
 }
