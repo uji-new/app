@@ -15,8 +15,7 @@ public class History05 extends BaseTest {
     public void valid() {
         // Given
         var name = "Castellon";
-        client.location.addLocation(name, name);
-        var coords = client.location.getLocations().extract().jsonPath().getString("get(0).coords");
+        var coords = client.location.addLocation(name, name).extract().jsonPath().getString("coords");
         client.location.removeLocation(coords);
 
         // When
@@ -34,8 +33,7 @@ public class History05 extends BaseTest {
     public void invalid() {
         // Given
         var name = "Castellon";
-        client.location.addLocation(name, name);
-        var coords = client.location.getLocations().extract().jsonPath().getString("get(0).coords");
+        var coords = client.location.addLocation(name, name).extract().jsonPath().getString("coords");
 
         // When
         var response = client.history.restoreLocation(coords);
