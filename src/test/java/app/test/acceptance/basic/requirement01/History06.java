@@ -14,6 +14,7 @@ public class History06 extends BaseTest {
     public void valid() {
         // Given
         var name = "Castellon";
+        var coords = "39.970,-0.050";
 
         // When
         var response = client.query.query(name);
@@ -21,6 +22,7 @@ public class History06 extends BaseTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("size()", equalTo(1));
+        response.body("get(0).coords", equalTo(coords));
     }
 
     @Test

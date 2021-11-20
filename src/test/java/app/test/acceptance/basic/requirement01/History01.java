@@ -13,15 +13,17 @@ public class History01 extends BaseTest {
     @Test
     public void valid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellon de la Plana";
 
         // When
         var response = client.location.addLocation(name, name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
+        response.log().body();
         var state = client.location.getLocations();
         state.body("size()", equalTo(1));
+        state.body("get(0).name", equalTo(name));
     }
 
     @Test
