@@ -1,9 +1,11 @@
 package app.manager;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import app.error.AuthenticationError;
 import app.manager.generic.SessionProperty;
 import app.model.AccountModel;
 import lombok.AllArgsConstructor;
@@ -35,7 +37,11 @@ public class SessionManager {
     }
 
     public AccountModel getAccount() {
-        return get(SessionProperty.ACCOUNT, AccountModel.class);
+        try {
+            return get(SessionProperty.ACCOUNT, AccountModel.class);
+        } catch (NoSuchElementException ignored) {
+            throw new AuthenticationError();
+        }
     }
 
     public void saveAccount(AccountModel account) {
