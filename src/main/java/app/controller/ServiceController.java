@@ -24,10 +24,10 @@ public class ServiceController extends BaseController {
     public Object getServices(HttpSession rawSession) {
         setSessionFrom(rawSession);
         var account = session.getAccount();
-        var userServices = account.getServices();
+        var services = account.getServices();
         return serviceManager.getServices().stream().map(service -> {
             var type = service.getType();
-            var active = userServices.contains(type);
+            var active = services.contains(type);
             return Map.of("service", service, "active", active);
         }).toList();
     }
@@ -67,10 +67,10 @@ public class ServiceController extends BaseController {
         setSessionFrom(rawSession);
         var account = session.getAccount();
         var location = getLocation(query);
-        var locationServices = location.getServices();
+        var services = location.getServices();
         return account.getServices().stream().parallel().map(type -> {
             var service = serviceManager.getService(type);
-            var active = locationServices.contains(type);
+            var active = services.contains(type);
             Object data = false;
             if (active) try {
                 data = service.getData(location);
