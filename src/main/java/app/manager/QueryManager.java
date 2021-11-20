@@ -18,7 +18,7 @@ public class QueryManager {
         return services.stream().parallel().flatMap(service -> service.getData(query).stream()).toList();
     }
 
-    public LocationModel getData(String info) {
-        return getAllData(info).stream().findFirst().orElseThrow(MissingError::new);
+    public LocationModel getData(String query) {
+        return getAllData(query).stream().findFirst().orElseThrow(MissingError::new);
     }
 }
