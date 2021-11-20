@@ -25,11 +25,9 @@ import app.error.MissingError;
 import app.model.generic.BaseModel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@NoArgsConstructor
 @Configurable(preConstruction = true)
 @JsonAutoDetect(getterVisibility = Visibility.NONE)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
@@ -41,7 +39,12 @@ public class AccountModel extends BaseModel {
     @Autowired @Transient private PasswordEncryptor passwordEncryptor;
     @Setter @Getter @Transient private boolean Transient = false;
 
+    public AccountModel() {
+        enableAllServices();
+    }
+
     public AccountModel(String mail, String password) {
+        this();
         this.mail = mail;
         encryptAndSetPassword(password);
     }

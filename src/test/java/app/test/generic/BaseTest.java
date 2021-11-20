@@ -25,14 +25,11 @@ public abstract class BaseTest {
 
     @BeforeEach
     public void beforeEach(TestInfo info) {
-        var id = getId(info);
         client.setPort(port);
         client.setupSession();
-        client.account.register(id, id);
     }
 
     @AfterEach
-    public void afterEach() {
-        client.account.deregister();
+    public void afterEach(TestInfo info) {
     }
 }

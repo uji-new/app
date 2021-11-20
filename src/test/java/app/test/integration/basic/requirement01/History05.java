@@ -8,10 +8,10 @@ import static org.hamcrest.Matchers.equalTo;
 import org.springframework.http.HttpStatus;
 
 import app.model.LocationModel;
-import app.test.generic.BaseTest;
+import app.test.generic.SessionTest;
 
 // Como usuario quiero activar una ubicación disponible en el sistema, con el fin de recibir información relacionada con dicha ubicación.
-public class History05 extends BaseTest {
+public class History05 extends SessionTest {
     @Test
     public void valid() {
         // Given

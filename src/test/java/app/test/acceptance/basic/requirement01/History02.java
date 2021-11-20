@@ -6,10 +6,10 @@ import static org.hamcrest.Matchers.equalTo;
 
 import org.springframework.http.HttpStatus;
 
-import app.test.generic.BaseTest;
+import app.test.generic.SessionTest;
 
 // Como usuario quiero dar de alta una ubicación a partir de unas coordenadas geográficas, con el fin de tenerla disponible en el sistema.
-public class History02 extends BaseTest {
+public class History02 extends SessionTest {
     @Test
     public void valid() {
         // Given

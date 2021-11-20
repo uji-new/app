@@ -9,10 +9,10 @@ import org.springframework.http.HttpStatus;
 
 import app.error.MissingError;
 import app.model.LocationModel;
-import app.test.generic.BaseTest;
+import app.test.generic.SessionTest;
 
 // Como usuario quiero dar de alta una ubicación a partir de un topónimo, con el fin de tenerla disponible en el sistema.
-public class History01 extends BaseTest {
+public class History01 extends SessionTest {
     @Test
     public void valid() {
         // Given

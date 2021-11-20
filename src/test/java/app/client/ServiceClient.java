@@ -17,11 +17,11 @@ public class ServiceClient extends BaseClient {
         return setupRequest().get().then();
     }
 
-    public ValidatableResponse addAllServices() {
+    public ValidatableResponse enableAllServices() {
         return setupRequest().post().then();
     }
 
-    public ValidatableResponse removeAllServices() {
+    public ValidatableResponse disableAllServices() {
         return setupRequest().delete().then();
     }
 

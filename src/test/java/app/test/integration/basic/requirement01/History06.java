@@ -8,13 +8,13 @@ import static org.hamcrest.Matchers.equalTo;
 import org.springframework.http.HttpStatus;
 
 import app.model.LocationModel;
-import app.test.generic.BaseTest;
+import app.test.generic.SessionTest;
 
 import java.util.Collections;
 import java.util.List;
 
 // Como usuario quiero obtener las coordenadas geográficas de una ubicación a partir de su topónimo, con el fin de facilitar la obtención de información en múltiples fuentes públicas (API).
-public class History06 extends BaseTest {
+public class History06 extends SessionTest {
     @Test
     public void valid() {
         // Given
