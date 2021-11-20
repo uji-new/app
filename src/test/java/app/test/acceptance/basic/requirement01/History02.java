@@ -21,7 +21,6 @@ public class History02 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.log().body();
         var state = client.location.getLocations();
         state.body("size()", equalTo(1));
         state.body("get(0).coords", equalTo(coords));
