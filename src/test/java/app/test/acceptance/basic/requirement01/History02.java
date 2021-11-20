@@ -1,6 +1,7 @@
 package app.test.acceptance.basic.requirement01;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -15,11 +16,13 @@ public class History02 extends SessionTest {
         // Given
         var name = "Castellon";
         var coords = "39.978,-0.033";
+        Mockito.reset(spy.accountManager);
 
         // When
         var response = client.location.addLocation(coords, name);
 
         // Then
+        Mockito.verify(spy.accountManager).saveAccount(Mockito.any());
         response.statusCode(HttpStatus.OK.value());
         var state = client.location.getLocations();
         state.body("size()", equalTo(1));
@@ -31,11 +34,13 @@ public class History02 extends SessionTest {
         // Given
         var name = "INVALIDO";
         var coords = "180.0,360.0";
+        Mockito.reset(spy.accountManager);
 
         // When
         var response = client.location.addLocation(coords, name);
 
         // Then
+        Mockito.verify(spy.accountManager, Mockito.never()).saveAccount(Mockito.any());
         response.statusCode(HttpStatus.NOT_FOUND.value());
         var state = client.location.getLocations();
         state.body("size()", equalTo(0));

@@ -20,11 +20,13 @@ public class History02 extends SessionTest {
         var location = new LocationModel(name, 39.980, -0.033);
         var coords = location.getCoords();
         Mockito.doReturn(location).when(spy.queryManager).getData(coords);
+        Mockito.reset(spy.accountManager);
 
         // When
         var response = client.location.addLocation(coords, name);
 
         // Then
+        Mockito.verify(spy.accountManager).saveAccount(Mockito.any());
         response.statusCode(HttpStatus.OK.value());
         var state = client.location.getLocations();
         state.body("size()", equalTo(1));
@@ -37,11 +39,13 @@ public class History02 extends SessionTest {
         var name = "INVALIDO";
         var coords = "180.0,360.0";
         Mockito.doThrow(new MissingError()).when(spy.queryManager).getData(coords);
+        Mockito.reset(spy.accountManager);
 
         // When
         var response = client.location.addLocation(coords, name);
 
         // Then
+        Mockito.verify(spy.accountManager, Mockito.never()).saveAccount(Mockito.any());
         response.statusCode(HttpStatus.NOT_FOUND.value());
         var state = client.location.getLocations();
         state.body("size()", equalTo(0));

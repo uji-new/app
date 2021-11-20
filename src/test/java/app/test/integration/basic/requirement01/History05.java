@@ -21,11 +21,13 @@ public class History05 extends SessionTest {
         var location = client.location.addLocation(name, name);
         var coords = location.extract().jsonPath().getString("coords");
         client.location.removeLocation(coords);
+        Mockito.reset(spy.accountManager);
 
         // When
         var response = client.history.restoreLocation(coords);
 
         // Then
+        Mockito.verify(spy.accountManager).saveAccount(Mockito.any());
         response.statusCode(HttpStatus.OK.value());
         var statePlaces = client.location.getLocations();
         var stateHistory = client.history.getLocations();
@@ -42,11 +44,13 @@ public class History05 extends SessionTest {
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         var location = client.location.addLocation(name, name);
         var coords = location.extract().jsonPath().getString("coords");
+        Mockito.reset(spy.accountManager);
 
         // When
         var response = client.history.restoreLocation(coords);
 
         // Then
+        Mockito.verify(spy.accountManager, Mockito.never()).saveAccount(Mockito.any());
         response.statusCode(HttpStatus.NOT_FOUND.value());
         var statePlaces = client.location.getLocations();
         var stateHistory = client.history.getLocations();
