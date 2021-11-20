@@ -28,11 +28,11 @@ public abstract class BaseTest {
         var id = getId(info);
         client.setPort(port);
         client.setupSession();
-        client.user.register(id, id);
+        client.account.register(id, id);
     }
 
     @AfterEach
     public void afterEach() {
-        client.user.deregister();
+        client.account.deregister();
     }
 }

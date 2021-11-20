@@ -21,8 +21,8 @@ public class History03 extends BaseTest {
         var type = ServiceType.WEATHER.name();
         var location = new LocationModel(name, 39.980, -0.033);
         Mockito.doReturn(location).when(spy.queryManager).getData(name);
-        client.place.addLocation(name, name);
-        client.service.addService(type);
+        client.location.addLocation(name, name);
+        client.service.enableService(type);
 
         name = "Valencia";
         location = new LocationModel(name, 39.980, -0.033);

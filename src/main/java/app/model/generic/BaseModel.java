@@ -24,16 +24,16 @@ public abstract class BaseModel {
     @ElementCollection(fetch = FetchType.EAGER) @SortNatural private SortedSet<ServiceType> services = new TreeSet<>();
     @Autowired @Transient ServiceManager serviceManager;
 
-    public void addAllServices() {
+    public void enableAllServices() {
         setServices(serviceManager.getServices().stream().map(BaseService::getType).collect(Collectors.toCollection(TreeSet::new)));
     }
 
-    public void removeAllServices() {
+    public void disableAllServices() {
         services.clear();
     }
 
     public void setServices(SortedSet<ServiceType> services) {
-        removeAllServices();
+        disableAllServices();
         this.services.addAll(services);
     }
 
@@ -41,11 +41,11 @@ public abstract class BaseModel {
         return Collections.unmodifiableSortedSet(services);
     }
 
-    public void addService(ServiceType type) {
+    public void enableService(ServiceType type) {
         services.add(type);
     }
 
-    public void removeService(ServiceType type) {
+    public void disableService(ServiceType type) {
         services.remove(type);
     }
 }

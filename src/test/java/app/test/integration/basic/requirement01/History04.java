@@ -23,8 +23,8 @@ public class History04 extends BaseTest {
         var coords = location.getCoords();
         Mockito.doReturn(location).when(spy.queryManager).getData(coords);
         Mockito.doReturn(true).when(spy.weatherService).getData(location);
-        client.place.addLocation(coords, name);
-        client.service.addService(type);
+        client.location.addLocation(coords, name);
+        client.service.enableService(type);
 
         // When
         var response = client.service.getServicesForLocation(coords);

@@ -18,16 +18,16 @@ public class History05 extends BaseTest {
         var name = "Castellon";
         var location = new LocationModel(name, 39.980, -0.033);
         Mockito.doReturn(location).when(spy.queryManager).getData(name);
-        client.place.addLocation(name, name);
-        var coords = client.place.getLocations().extract().jsonPath().getString("get(0).coords");
-        client.place.removeLocation(coords);
+        client.location.addLocation(name, name);
+        var coords = client.location.getLocations().extract().jsonPath().getString("get(0).coords");
+        client.location.removeLocation(coords);
 
         // When
         var response = client.history.restoreLocation(coords);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        var statePlaces = client.place.getLocations();
+        var statePlaces = client.location.getLocations();
         var stateHistory = client.history.getLocations();
         statePlaces.body("size()", equalTo(1));
         statePlaces.body("get(0).name", equalTo(name));
@@ -40,15 +40,15 @@ public class History05 extends BaseTest {
         var name = "Castellon";
         var location = new LocationModel(name, 39.980, -0.033);
         Mockito.doReturn(location).when(spy.queryManager).getData(name);
-        client.place.addLocation(name, name);
-        var coords = client.place.getLocations().extract().jsonPath().getString("get(0).coords");
+        client.location.addLocation(name, name);
+        var coords = client.location.getLocations().extract().jsonPath().getString("get(0).coords");
 
         // When
         var response = client.history.restoreLocation(coords);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());
-        var statePlaces = client.place.getLocations();
+        var statePlaces = client.location.getLocations();
         var stateHistory = client.history.getLocations();
         statePlaces.body("size()", equalTo(1));
         statePlaces.body("get(0).name", equalTo(name));

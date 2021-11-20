@@ -16,8 +16,8 @@ public class History04 extends BaseTest {
         // Given
         var name = "Valencia";
         var type = ServiceType.WEATHER.name();
-        client.place.addLocation(name, name);
-        client.service.addService(type);
+        client.location.addLocation(name, name);
+        client.service.enableService(type);
         var coords = "39.978,-0.033";
 
         // When

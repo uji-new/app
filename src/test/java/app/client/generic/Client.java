@@ -17,8 +17,8 @@ import io.restassured.filter.session.SessionFilter;
 @Service
 public class Client {
     @Autowired private Set<BaseClient> clients;
-    @Autowired public AccountClient user;
-    @Autowired public LocationClient place;
+    @Autowired public AccountClient account;
+    @Autowired public LocationClient location;
     @Autowired public QueryClient query;
     @Autowired public HistoryClient history;
     @Autowired public ServiceClient service;

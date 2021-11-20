@@ -16,8 +16,8 @@ public class History03 extends BaseTest {
         // Given
         var name = "Castellon";
         var type = ServiceType.WEATHER.name();
-        client.place.addLocation(name, name);
-        client.service.addService(type);
+        client.location.addLocation(name, name);
+        client.service.enableService(type);
         name = "Valencia";
 
         // When
