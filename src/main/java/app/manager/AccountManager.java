@@ -1,50 +1,44 @@
 package app.manager;
 
-import java.util.List;
-
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import app.dao.UserDao;
+import app.dao.AccountDao;
 import app.error.AuthenticationError;
 import app.model.AccountModel;
 
 @Service
 public class AccountManager {
-    @Autowired private UserDao userDao;
+    @Autowired private AccountDao accountDao;
 
     public AccountModel newGuest() {
-        var user = new AccountModel();
-        user.setTransient(true);
-        return user;
+        var account = new AccountModel();
+        account.setTransient(true);
+        return account;
     }
 
-    public AccountModel newUser(String mail, String password) {
+    public AccountModel newAccount(String mail, String password) {
         return new AccountModel(mail, password);
     }
 
-    public boolean existsUser(String mail) {
-        return userDao.existsById(mail);
+    public boolean existsAccount(String mail) {
+        return accountDao.existsById(mail);
     }
 
-    public List<AccountModel> getUsers() {
-        return userDao.findAll();
+    public AccountModel getAccount(String mail) {
+        return accountDao.findById(mail).orElseThrow(AuthenticationError::new);
     }
 
-    public AccountModel getUser(String mail) {
-        return userDao.findById(mail).orElseThrow(AuthenticationError::new);
+    public void saveAccount(AccountModel account) {
+        if (!account.isTransient())
+            accountDao.save(account);
     }
 
-    public void saveUser(AccountModel user) {
-        if (!user.isTransient())
-            userDao.save(user);
-    }
-
-    public void deleteUser(String mail) {
-        userDao.deleteById(mail);
+    public void deleteAccount(String mail) {
+        accountDao.deleteById(mail);
     }
 
     @Bean

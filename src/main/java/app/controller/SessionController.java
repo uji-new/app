@@ -17,23 +17,23 @@ public class SessionController extends BaseController {
     @GetMapping
     public Object getSession(HttpSession rawSession) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        return user;
+        var account = session.getAccount();
+        return account;
     }
 
     @PostMapping
     public void login(HttpSession rawSession, @RequestParam String mail, @RequestParam String password) {
         setSessionFrom(rawSession);
-        var user = accountManager.getUser(mail);
-        user.validatePassword(password);    
-        session.saveUser(user);
+        var account = accountManager.getAccount(mail);
+        account.validatePassword(password);    
+        session.saveAccount(account);
     }
 
     @PostMapping("/guest")
     public void loginAsGuest(HttpSession rawSession) {
         setSessionFrom(rawSession);
-        var user = accountManager.newGuest();
-        saveUser(user);
+        var account = accountManager.newGuest();
+        saveAccount(account);
     }
 
     @DeleteMapping

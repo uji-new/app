@@ -17,23 +17,23 @@ public class HistoryController extends BaseController {
     @GetMapping
     public Object getLocations(HttpSession rawSession) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        return user.getHistory();
+        var account = session.getAccount();
+        return account.getHistory();
     }
 
     @PostMapping("/{coords}")
     public void restoreLocation(HttpSession rawSession, @PathVariable String coords) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        user.restoreHistoryLocation(coords);
-        saveUser(user);
+        var account = session.getAccount();
+        account.restoreHistoryLocation(coords);
+        saveAccount(account);
     }
 
     @DeleteMapping("/{coords}")
     public void removeLocation(HttpSession rawSession, @PathVariable String coords) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        user.removeHistoryLocation(coords);
-        saveUser(user);
+        var account = session.getAccount();
+        account.removeHistoryLocation(coords);
+        saveAccount(account);
     }
 }

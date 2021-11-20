@@ -19,34 +19,34 @@ public class LocationController extends BaseController {
     @GetMapping
     public Object getLocations(HttpSession rawSession) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        return user.getLocations();
+        var account = session.getAccount();
+        return account.getLocations();
     }
 
     @PostMapping("/{query}")
     public void addLocation(HttpSession rawSession, @PathVariable String query, @RequestParam String alias) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
+        var account = session.getAccount();
         var location = queryManager.getData(query);
         location.setAlias(alias);
-        user.addLocation(location);
-        saveUser(user);
+        account.addLocation(location);
+        saveAccount(account);
     }
 
     @PutMapping("/{coords}")
     public void updateLocation(HttpSession rawSession, @PathVariable String coords, @RequestParam String alias) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        var location = user.getLocation(coords);
+        var account = session.getAccount();
+        var location = account.getLocation(coords);
         location.setAlias(alias);
-        saveUser(user);
+        saveAccount(account);
     }
 
     @DeleteMapping("/{coords}")
     public void removeLocation(HttpSession rawSession, @PathVariable String coords) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        user.removeLocation(coords);
-        saveUser(user);
+        var account = session.getAccount();
+        account.removeLocation(coords);
+        saveAccount(account);
     }
 }

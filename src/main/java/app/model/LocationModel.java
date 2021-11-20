@@ -21,7 +21,7 @@ import lombok.Setter;
 
 @Getter
 class LocationId implements Serializable {
-    private AccountModel user;
+    private AccountModel account;
     private double latitude;
     private double longitude;
 }
@@ -31,7 +31,7 @@ class LocationId implements Serializable {
 @IdClass(LocationId.class)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 public class LocationModel extends BaseModel implements Comparable<LocationModel> {
-    @Id @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore @Setter(AccessLevel.PROTECTED) private AccountModel user;
+    @Id @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore @Setter(AccessLevel.PROTECTED) private AccountModel account;
     @Id @Getter private double latitude;
     @Id @Getter private double longitude;
     @EqualsAndHashCode.Include @Getter private String name;

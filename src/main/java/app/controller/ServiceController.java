@@ -23,8 +23,8 @@ public class ServiceController extends BaseController {
     @GetMapping
     public Object getServices(HttpSession rawSession) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        var userServices = user.getServices();
+        var account = session.getAccount();
+        var userServices = account.getServices();
         return serviceManager.getServices().stream().map(service -> {
             var type = service.getType();
             var active = userServices.contains(type);
@@ -35,29 +35,29 @@ public class ServiceController extends BaseController {
     @PostMapping
     public void enableService(HttpSession rawSession, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        if (type == null) user.enableAllServices();
-        else user.enableService(type);
-        saveUser(user);
+        var account = session.getAccount();
+        if (type == null) account.enableAllServices();
+        else account.enableService(type);
+        saveAccount(account);
     }
 
     @DeleteMapping
     public void disableService(HttpSession rawSession, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        if (type == null) user.disableAllServices();
-        else user.disableService(type);
-        saveUser(user);
+        var account = session.getAccount();
+        if (type == null) account.disableAllServices();
+        else account.disableService(type);
+        saveAccount(account);
     }
 
     protected LocationModel getLocation(String query) {
-        var user = session.getUser();
+        var account = session.getAccount();
         LocationModel location;
         try {
-            location = user.getLocation(query);
+            location = account.getLocation(query);
         } catch (MissingError ignored) {
             location = queryManager.getData(query);
-            location.setServices(user.getServices());
+            location.setServices(account.getServices());
         }
         return location;
     }
@@ -65,10 +65,10 @@ public class ServiceController extends BaseController {
     @GetMapping("/{query}")
     public Object getServicesForLocation(HttpSession rawSession, @PathVariable String query) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
+        var account = session.getAccount();
         var location = getLocation(query);
         var locationServices = location.getServices();
-        return user.getServices().stream().parallel().map(type -> {
+        return account.getServices().stream().parallel().map(type -> {
             var service = serviceManager.getService(type);
             var active = locationServices.contains(type);
             Object data = false;
@@ -82,20 +82,20 @@ public class ServiceController extends BaseController {
     @PostMapping("/{coords}")
     public void enableServiceForLocation(HttpSession rawSession, @PathVariable String coords, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        var location = user.getLocation(coords);
+        var account = session.getAccount();
+        var location = account.getLocation(coords);
         if (type == null) location.enableAllServices();
         else location.enableService(type);
-        saveUser(user);
+        saveAccount(account);
     }
 
     @DeleteMapping("/{coords}")
     public void disableServiceForLocation(HttpSession rawSession, @PathVariable String coords, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        var location = user.getLocation(coords);
+        var account = session.getAccount();
+        var location = account.getLocation(coords);
         if (type == null) location.disableAllServices();
         else location.disableService(type);
-        saveUser(user);
+        saveAccount(account);
     }
 }

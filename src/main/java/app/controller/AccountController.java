@@ -19,26 +19,26 @@ public class AccountController extends BaseController {
     public void register(HttpSession rawSession, @RequestParam String mail, @RequestParam String password) {
         setSessionFrom(rawSession);
         synchronized (mail.intern()) {
-            if (accountManager.existsUser(mail))
+            if (accountManager.existsAccount(mail))
                 throw new ConfilictError();
-            var user = accountManager.newUser(mail, password);
-            saveUser(user);
+            var account = accountManager.newAccount(mail, password);
+            saveAccount(account);
         }
     }
 
     @PutMapping
     public void updateAccount(HttpSession rawSession, @RequestParam String password) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        user.encryptAndSetPassword(password);
-        saveUser(user);
+        var account = session.getAccount();
+        account.encryptAndSetPassword(password);
+        saveAccount(account);
     }
 
     @DeleteMapping
     public void deregister(HttpSession rawSession) {
         setSessionFrom(rawSession);
-        var user = session.getUser();
-        accountManager.deleteUser(user.getMail());
+        var account = session.getAccount();
+        accountManager.deleteAccount(account.getMail());
         session.clear();
     }
 }

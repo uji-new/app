@@ -34,15 +34,15 @@ public class SessionManager {
         session.invalidate();
     }
 
-    public AccountModel getUser() {
-        return get(SessionProperty.USER, AccountModel.class);
+    public AccountModel getAccount() {
+        return get(SessionProperty.ACCOUNT, AccountModel.class);
     }
 
-    public void saveUser(AccountModel user) {
-        put(SessionProperty.USER, user);
+    public void saveAccount(AccountModel account) {
+        put(SessionProperty.ACCOUNT, account);
     }
 
-    public void deleteUser() {
-        remove(SessionProperty.USER);
+    public void deleteAccount() {
+        remove(SessionProperty.ACCOUNT);
     }
 }

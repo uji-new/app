@@ -64,7 +64,7 @@ public class AccountModel extends BaseModel {
     }
 
     public void addLocation(LocationModel location) {
-        location.setUser(this);
+        location.setAccount(this);
         location.setServices(getServices());
         locations.add(location);
     }

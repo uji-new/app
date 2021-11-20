@@ -24,8 +24,8 @@ public abstract class BaseController {
         session = getSessionFrom(rawSession);
     }
 
-    protected void saveUser(AccountModel user) {
-        accountManager.saveUser(user);
-        session.saveUser(user);
+    protected void saveAccount(AccountModel account) {
+        accountManager.saveAccount(account);
+        session.saveAccount(account);
     }
 }
