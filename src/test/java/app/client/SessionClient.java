@@ -17,15 +17,15 @@ public class SessionClient extends BaseClient {
         return setupRequest().get().then();
     }
 
-    public ValidatableResponse newSession(String mail, String password) {
+    public ValidatableResponse login(String mail, String password) {
         return setupRequest().queryParam("mail", mail).queryParam("password", password).post().then();
     }
 
-    public ValidatableResponse newGuest() {
+    public ValidatableResponse loginAsGuest() {
         return setupRequest("guest").post().then();
     }
 
-    public ValidatableResponse deleteSession() {
+    public ValidatableResponse logout() {
         return setupRequest().delete().then();
     }
 }

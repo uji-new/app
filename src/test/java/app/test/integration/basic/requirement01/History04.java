@@ -23,11 +23,11 @@ public class History04 extends BaseTest {
         var coords = location.getCoords();
         Mockito.doReturn(location).when(spy.queryManager).getData(coords);
         Mockito.doReturn(true).when(spy.weatherService).getData(location);
-        client.service.newService(type);
-        client.place.newPlace(coords, name);
+        client.place.addLocation(coords, name);
+        client.service.addService(type);
 
         // When
-        var response = client.service.getServicesForPlace(coords);
+        var response = client.service.getServicesForLocation(coords);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
@@ -42,7 +42,7 @@ public class History04 extends BaseTest {
         Mockito.doThrow(new MissingError()).when(spy.queryManager).getData(coords);
 
         // When
-        var response = client.service.getServicesForPlace(coords);
+        var response = client.service.getServicesForLocation(coords);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());

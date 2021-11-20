@@ -15,17 +15,17 @@ public class History05 extends BaseTest {
     public void valid() {
         // Given
         var name = "Castellon";
-        client.place.newPlace(name, name);
-        var coords = client.place.getPlaces().extract().jsonPath().getString("get(0).coords");
-        client.place.deletePlace(coords);
+        client.place.addLocation(name, name);
+        var coords = client.place.getLocations().extract().jsonPath().getString("get(0).coords");
+        client.place.removeLocation(coords);
 
         // When
-        var response = client.history.newPlace(coords);
+        var response = client.history.restoreLocation(coords);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        var statePlaces = client.place.getPlaces();
-        var stateHistory = client.history.getPlaces();
+        var statePlaces = client.place.getLocations();
+        var stateHistory = client.history.getLocations();
         statePlaces.body("size()", equalTo(1));
         stateHistory.body("size()", equalTo(0));
     }
@@ -34,16 +34,16 @@ public class History05 extends BaseTest {
     public void invalid() {
         // Given
         var name = "Castellon";
-        client.place.newPlace(name, name);
-        var coords = client.place.getPlaces().extract().jsonPath().getString("get(0).coords");
+        client.place.addLocation(name, name);
+        var coords = client.place.getLocations().extract().jsonPath().getString("get(0).coords");
 
         // When
-        var response = client.history.newPlace(coords);
+        var response = client.history.restoreLocation(coords);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());
-        var statePlaces = client.place.getPlaces();
-        var stateHistory = client.history.getPlaces();
+        var statePlaces = client.place.getLocations();
+        var stateHistory = client.history.getLocations();
         statePlaces.body("size()", equalTo(1));
         stateHistory.body("size()", equalTo(0));
     }

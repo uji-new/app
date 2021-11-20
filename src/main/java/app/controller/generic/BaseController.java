@@ -8,7 +8,7 @@ import app.manager.AccountManager;
 import app.manager.QueryManager;
 import app.manager.ServiceManager;
 import app.manager.SessionManager;
-import app.model.UserModel;
+import app.model.AccountModel;
 
 public abstract class BaseController {
     protected SessionManager session;
@@ -24,7 +24,7 @@ public abstract class BaseController {
         session = getSessionFrom(rawSession);
     }
 
-    protected void saveUser(UserModel user) {
+    protected void saveUser(AccountModel user) {
         accountManager.saveUser(user);
         session.saveUser(user);
     }

@@ -21,8 +21,8 @@ public class History03 extends BaseTest {
         var type = ServiceType.WEATHER.name();
         var location = new LocationModel(name, 39.980, -0.033);
         Mockito.doReturn(location).when(spy.queryManager).getData(name);
-        client.service.newService(type);
-        client.place.newPlace(name, name);
+        client.place.addLocation(name, name);
+        client.service.addService(type);
 
         name = "Valencia";
         location = new LocationModel(name, 39.980, -0.033);
@@ -30,7 +30,7 @@ public class History03 extends BaseTest {
         Mockito.doReturn(true).when(spy.weatherService).getData(location);
 
         // When
-        var response = client.service.getServicesForPlace(name);
+        var response = client.service.getServicesForLocation(name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
@@ -46,7 +46,7 @@ public class History03 extends BaseTest {
         Mockito.doThrow(new MissingError()).when(spy.queryManager).getData(name);
 
         // When
-        var response = client.service.getServicesForPlace(name);
+        var response = client.service.getServicesForLocation(name);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());

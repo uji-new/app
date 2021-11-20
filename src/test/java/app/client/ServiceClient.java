@@ -17,23 +17,39 @@ public class ServiceClient extends BaseClient {
         return setupRequest().get().then();
     }
 
-    public ValidatableResponse newService(String type) {
+    public ValidatableResponse addAllServices() {
+        return setupRequest().post().then();
+    }
+
+    public ValidatableResponse removeAllServices() {
+        return setupRequest().delete().then();
+    }
+
+    public ValidatableResponse addService(String type) {
         return setupRequest().queryParam("type", type).post().then();
     }
 
-    public ValidatableResponse deleteService(String type) {
+    public ValidatableResponse removeService(String type) {
         return setupRequest().queryParam("type", type).delete().then();
     }
 
-    public ValidatableResponse getServicesForPlace(String query) {
+    public ValidatableResponse getServicesForLocation(String query) {
         return setupRequest("{query}").pathParam("query", query).get().then();
     }
 
-    public ValidatableResponse newServiceForPlace(String coords, String type) {
+    public ValidatableResponse addAllServicesForLocation(String coords) {
+        return setupRequest("{coords}").pathParam("coords", coords).post().then();
+    }
+
+    public ValidatableResponse removeAllServicesForLocation(String coords) {
+        return setupRequest("{coords}").pathParam("coords", coords).delete().then();
+    }
+
+    public ValidatableResponse addServiceForLocation(String coords, String type) {
         return setupRequest("{coords}").pathParam("coords", coords).queryParam("type", type).post().then();
     }
 
-    public ValidatableResponse deleteServiceForPlace(String coords, String type) {
+    public ValidatableResponse removeServiceForLocation(String coords, String type) {
         return setupRequest("{coords}").pathParam("coords", coords).queryParam("type", type).delete().then();
     }
 }

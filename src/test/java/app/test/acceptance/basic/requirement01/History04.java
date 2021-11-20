@@ -16,12 +16,12 @@ public class History04 extends BaseTest {
         // Given
         var name = "Valencia";
         var type = ServiceType.WEATHER.name();
-        client.service.newService(type);
-        client.place.newPlace(name, name);
+        client.place.addLocation(name, name);
+        client.service.addService(type);
         var coords = "39.978,-0.033";
 
         // When
-        var response = client.service.getServicesForPlace(coords);
+        var response = client.service.getServicesForLocation(coords);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
@@ -35,7 +35,7 @@ public class History04 extends BaseTest {
         var coords = "180,360";
 
         // When
-        var response = client.service.getServicesForPlace(coords);
+        var response = client.service.getServicesForLocation(coords);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());

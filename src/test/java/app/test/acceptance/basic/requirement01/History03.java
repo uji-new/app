@@ -16,12 +16,12 @@ public class History03 extends BaseTest {
         // Given
         var name = "Castellon";
         var type = ServiceType.WEATHER.name();
-        client.service.newService(type);
-        client.place.newPlace(name, name);
+        client.place.addLocation(name, name);
+        client.service.addService(type);
         name = "Valencia";
 
         // When
-        var response = client.service.getServicesForPlace(name);
+        var response = client.service.getServicesForLocation(name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
@@ -35,7 +35,7 @@ public class History03 extends BaseTest {
         var name = "INVALIDO";
 
         // When
-        var response = client.service.getServicesForPlace(name);
+        var response = client.service.getServicesForLocation(name);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());

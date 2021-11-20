@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 import app.controller.generic.BaseController;
 
 @RestController
-@RequestMapping("/places")
-public class PlaceController extends BaseController {
+@RequestMapping("/locations")
+public class LocationController extends BaseController {
     @GetMapping
-    public Object getPlaces(HttpSession rawSession) {
+    public Object getLocations(HttpSession rawSession) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         return user.getLocations();
     }
 
     @PostMapping("/{query}")
-    public void newPlace(HttpSession rawSession, @PathVariable String query, @RequestParam String alias) {
+    public void addLocation(HttpSession rawSession, @PathVariable String query, @RequestParam String alias) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         var location = queryManager.getData(query);
@@ -34,7 +34,7 @@ public class PlaceController extends BaseController {
     }
 
     @PutMapping("/{coords}")
-    public void updatePlace(HttpSession rawSession, @PathVariable String coords, @RequestParam String alias) {
+    public void updateLocation(HttpSession rawSession, @PathVariable String coords, @RequestParam String alias) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         var location = user.getLocation(coords);
@@ -43,7 +43,7 @@ public class PlaceController extends BaseController {
     }
 
     @DeleteMapping("/{coords}")
-    public void deletePlace(HttpSession rawSession, @PathVariable String coords) {
+    public void removeLocation(HttpSession rawSession, @PathVariable String coords) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         user.removeLocation(coords);

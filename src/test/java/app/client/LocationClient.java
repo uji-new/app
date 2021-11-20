@@ -7,25 +7,25 @@ import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
 @Service
-public class PlaceClient extends BaseClient {
+public class LocationClient extends BaseClient {
     @Override
     protected RequestSpecification setupRequest(String... path) {
-        return super.setupRequest(prefixArgs("places", path));
+        return super.setupRequest(prefixArgs("locations", path));
     }
 
-    public ValidatableResponse getPlaces() {
+    public ValidatableResponse getLocations() {
         return setupRequest().get().then();
     }
 
-    public ValidatableResponse newPlace(String query, String alias) {
+    public ValidatableResponse addLocation(String query, String alias) {
         return setupRequest("{query}").pathParam("query", query).queryParam("alias", alias).post().then();
     }
 
-    public ValidatableResponse updatePlace(String coords, String alias) {
+    public ValidatableResponse updateLocation(String coords, String alias) {
         return setupRequest("{coords}").pathParam("coords", coords).queryParam("alias", alias).put().then();
     }
 
-    public ValidatableResponse deletePlace(String coords) {
+    public ValidatableResponse removeLocation(String coords) {
         return setupRequest("{coords}").pathParam("coords", coords).delete().then();
     }
 }

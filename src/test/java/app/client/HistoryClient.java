@@ -13,15 +13,15 @@ public class HistoryClient extends BaseClient {
         return super.setupRequest(prefixArgs("history", path));
     }
 
-    public ValidatableResponse getPlaces() {
+    public ValidatableResponse getLocations() {
         return setupRequest().get().then();
     }
 
-    public ValidatableResponse newPlace(String coords) {
+    public ValidatableResponse restoreLocation(String coords) {
         return setupRequest("{coords}").pathParam("coords", coords).post().then();
     }
 
-    public ValidatableResponse deletePlace(String coords) {
+    public ValidatableResponse removeLocation(String coords) {
         return setupRequest("{coords}").pathParam("coords", coords).delete().then();
     }
 }

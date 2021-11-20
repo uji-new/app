@@ -13,10 +13,10 @@ import app.controller.generic.BaseController;
 import app.error.ConfilictError;
 
 @RestController
-@RequestMapping("/user")
-public class UserController extends BaseController {
+@RequestMapping("/account")
+public class AccountController extends BaseController {
     @PostMapping
-    public void newUser(HttpSession rawSession, @RequestParam String mail, @RequestParam String password) {
+    public void register(HttpSession rawSession, @RequestParam String mail, @RequestParam String password) {
         setSessionFrom(rawSession);
         synchronized (mail.intern()) {
             if (accountManager.existsUser(mail))
@@ -27,7 +27,7 @@ public class UserController extends BaseController {
     }
 
     @PutMapping
-    public void updateUser(HttpSession rawSession, @RequestParam String password) {
+    public void updateAccount(HttpSession rawSession, @RequestParam String password) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         user.encryptAndSetPassword(password);
@@ -35,7 +35,7 @@ public class UserController extends BaseController {
     }
 
     @DeleteMapping
-    public void deleteUser(HttpSession rawSession) {
+    public void deregister(HttpSession rawSession) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         accountManager.deleteUser(user.getMail());

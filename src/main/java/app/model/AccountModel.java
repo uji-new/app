@@ -33,16 +33,15 @@ import lombok.Setter;
 @Configurable(preConstruction = true)
 @JsonAutoDetect(getterVisibility = Visibility.NONE)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
-public class UserModel extends BaseModel {
+public class AccountModel extends BaseModel {
     @Id @Getter @EqualsAndHashCode.Include @JsonProperty private String mail;
     private String password;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @SortNatural private SortedSet<LocationModel> locations = new TreeSet<>();
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @SortNatural private SortedSet<LocationModel> history = new TreeSet<>();
     @Autowired @Transient private PasswordEncryptor passwordEncryptor;
-    @Setter @Getter @JsonProperty @Transient private boolean Transient = false;
+    @Setter @Getter @Transient private boolean Transient = false;
 
-    public UserModel(String mail, String password) {
-        //this();
+    public AccountModel(String mail, String password) {
         this.mail = mail;
         encryptAndSetPassword(password);
     }
@@ -66,6 +65,7 @@ public class UserModel extends BaseModel {
 
     public void addLocation(LocationModel location) {
         location.setUser(this);
+        location.setServices(getServices());
         locations.add(location);
     }
 

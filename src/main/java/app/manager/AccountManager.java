@@ -10,35 +10,35 @@ import org.springframework.stereotype.Service;
 
 import app.dao.UserDao;
 import app.error.AuthenticationError;
-import app.model.UserModel;
+import app.model.AccountModel;
 
 @Service
 public class AccountManager {
     @Autowired private UserDao userDao;
 
-    public UserModel newGuest() {
-        var user = new UserModel();
+    public AccountModel newGuest() {
+        var user = new AccountModel();
         user.setTransient(true);
         return user;
     }
 
-    public UserModel newUser(String mail, String password) {
-        return new UserModel(mail, password);
+    public AccountModel newUser(String mail, String password) {
+        return new AccountModel(mail, password);
     }
 
     public boolean existsUser(String mail) {
         return userDao.existsById(mail);
     }
 
-    public List<UserModel> getUsers() {
+    public List<AccountModel> getUsers() {
         return userDao.findAll();
     }
 
-    public UserModel getUser(String mail) {
+    public AccountModel getUser(String mail) {
         return userDao.findById(mail).orElseThrow(AuthenticationError::new);
     }
 
-    public void saveUser(UserModel user) {
+    public void saveUser(AccountModel user) {
         if (!user.isTransient())
             userDao.save(user);
     }

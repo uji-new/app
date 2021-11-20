@@ -22,11 +22,11 @@ public class History02 extends BaseTest {
         Mockito.doReturn(location).when(spy.queryManager).getData(coords);
 
         // When
-        var response = client.place.newPlace(coords, name);
+        var response = client.place.addLocation(coords, name);
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        var state = client.place.getPlaces();
+        var state = client.place.getLocations();
         state.body("size()", equalTo(1));
         state.body("get(0).coords", equalTo(coords));
     }
@@ -39,11 +39,11 @@ public class History02 extends BaseTest {
         Mockito.doThrow(new MissingError()).when(spy.queryManager).getData(coords);
 
         // When
-        var response = client.place.newPlace(coords, name);
+        var response = client.place.addLocation(coords, name);
 
         // Then
         response.statusCode(HttpStatus.NOT_FOUND.value());
-        var state = client.place.getPlaces();
+        var state = client.place.getLocations();
         state.body("size()", equalTo(0));
     }
 }

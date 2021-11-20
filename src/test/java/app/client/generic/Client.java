@@ -6,19 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.client.HistoryClient;
-import app.client.PlaceClient;
+import app.client.LocationClient;
 import app.client.QueryClient;
 import app.client.ServiceClient;
 import app.client.SessionClient;
-import app.client.UserClient;
+import app.client.AccountClient;
 import io.restassured.filter.Filter;
 import io.restassured.filter.session.SessionFilter;
 
 @Service
 public class Client {
     @Autowired private Set<BaseClient> clients;
-    @Autowired public UserClient user;
-    @Autowired public PlaceClient place;
+    @Autowired public AccountClient user;
+    @Autowired public LocationClient place;
     @Autowired public QueryClient query;
     @Autowired public HistoryClient history;
     @Autowired public ServiceClient service;

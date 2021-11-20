@@ -15,14 +15,14 @@ import app.controller.generic.BaseController;
 @RequestMapping("/history")
 public class HistoryController extends BaseController {
     @GetMapping
-    public Object getPlaces(HttpSession rawSession) {
+    public Object getLocations(HttpSession rawSession) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         return user.getHistory();
     }
 
     @PostMapping("/{coords}")
-    public void newPlace(HttpSession rawSession, @PathVariable String coords) {
+    public void restoreLocation(HttpSession rawSession, @PathVariable String coords) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         user.restoreHistoryLocation(coords);
@@ -30,7 +30,7 @@ public class HistoryController extends BaseController {
     }
 
     @DeleteMapping("/{coords}")
-    public void deletePlace(HttpSession rawSession, @PathVariable String coords) {
+    public void removeLocation(HttpSession rawSession, @PathVariable String coords) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         user.removeHistoryLocation(coords);

@@ -7,21 +7,21 @@ import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 
 @Service
-public class UserClient extends BaseClient {
+public class AccountClient extends BaseClient {
     @Override
     protected RequestSpecification setupRequest(String... path) {
-        return super.setupRequest(prefixArgs("user", path));
+        return super.setupRequest(prefixArgs("account", path));
     }
 
-    public ValidatableResponse newUser(String mail, String password) {
+    public ValidatableResponse register(String mail, String password) {
         return setupRequest().queryParam("mail", mail).queryParam("password", password).post().then();
     }
 
-    public ValidatableResponse updateUser(String password) {
+    public ValidatableResponse updateAccount(String password) {
         return setupRequest().queryParam("password", password).put().then();
     }
 
-    public ValidatableResponse deleteUser() {
+    public ValidatableResponse deregister() {
         return setupRequest().delete().then();
     }
 }

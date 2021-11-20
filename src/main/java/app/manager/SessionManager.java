@@ -5,7 +5,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import app.manager.generic.SessionProperty;
-import app.model.UserModel;
+import app.model.AccountModel;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -34,11 +34,11 @@ public class SessionManager {
         session.invalidate();
     }
 
-    public UserModel getUser() {
-        return get(SessionProperty.USER, UserModel.class);
+    public AccountModel getUser() {
+        return get(SessionProperty.USER, AccountModel.class);
     }
 
-    public void saveUser(UserModel user) {
+    public void saveUser(AccountModel user) {
         put(SessionProperty.USER, user);
     }
 

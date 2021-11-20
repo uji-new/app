@@ -33,18 +33,20 @@ public class ServiceController extends BaseController {
     }
 
     @PostMapping
-    public void newService(HttpSession rawSession, @RequestParam(required = false) ServiceType type) {
+    public void addService(HttpSession rawSession, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
         var user = session.getUser();
-        user.addService(type);
+        if (type == null) user.addAllServices();
+        else user.addService(type);
         saveUser(user);
     }
 
     @DeleteMapping
-    public void deleteService(HttpSession rawSession, @RequestParam(required = false) ServiceType type) {
+    public void removeService(HttpSession rawSession, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
         var user = session.getUser();
-        user.removeService(type);
+        if (type == null) user.removeAllServices();
+        else user.removeService(type);
         saveUser(user);
     }
 
@@ -61,7 +63,7 @@ public class ServiceController extends BaseController {
     }
 
     @GetMapping("/{query}")
-    public Object getServicesForPlace(HttpSession rawSession, @PathVariable String query) {
+    public Object getServicesForLocation(HttpSession rawSession, @PathVariable String query) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         var location = getLocation(query);
@@ -78,20 +80,22 @@ public class ServiceController extends BaseController {
     }
 
     @PostMapping("/{coords}")
-    public void newServiceForPlace(HttpSession rawSession, @PathVariable String coords, @RequestParam(required = false) ServiceType type) {
+    public void addServiceForLocation(HttpSession rawSession, @PathVariable String coords, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         var location = user.getLocation(coords);
-        location.addService(type);
+        if (type == null) location.addAllServices();
+        else location.addService(type);
         saveUser(user);
     }
 
     @DeleteMapping("/{coords}")
-    public void deleteServiceForPlace(HttpSession rawSession, @PathVariable String coords, @RequestParam(required = false) ServiceType type) {
+    public void removeServiceForLocation(HttpSession rawSession, @PathVariable String coords, @RequestParam(required = false) ServiceType type) {
         setSessionFrom(rawSession);
         var user = session.getUser();
         var location = user.getLocation(coords);
-        location.removeService(type);
+        if (type == null) location.removeAllServices();
+        else location.removeService(type);
         saveUser(user);
     }
 }

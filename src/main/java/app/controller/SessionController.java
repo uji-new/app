@@ -22,7 +22,7 @@ public class SessionController extends BaseController {
     }
 
     @PostMapping
-    public void newSession(HttpSession rawSession, @RequestParam String mail, @RequestParam String password) {
+    public void login(HttpSession rawSession, @RequestParam String mail, @RequestParam String password) {
         setSessionFrom(rawSession);
         var user = accountManager.getUser(mail);
         user.validatePassword(password);    
@@ -30,14 +30,14 @@ public class SessionController extends BaseController {
     }
 
     @PostMapping("/guest")
-    public void newGuest(HttpSession rawSession) {
+    public void loginAsGuest(HttpSession rawSession) {
         setSessionFrom(rawSession);
         var user = accountManager.newGuest();
         saveUser(user);
     }
 
     @DeleteMapping
-    public void deleteSession(HttpSession rawSession) {
+    public void logout(HttpSession rawSession) {
         setSessionFrom(rawSession);
         session.clear();
     }
