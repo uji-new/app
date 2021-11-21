@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 
 import app.api.service.generic.BaseService;
 import app.api.service.generic.ServiceType;
+import app.manager.generic.BaseManager;
 import lombok.Getter;
 
 @Service
-public class ServiceManager {
+public class ServiceManager extends BaseManager {
     @Autowired @Getter private SortedSet<BaseService> services;
 
     @Cacheable(forever = true)

@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 
 import app.api.query.generic.BaseQuery;
 import app.error.MissingError;
+import app.manager.generic.BaseManager;
 import app.model.LocationModel;
 
 @Service
-public class QueryManager {
+public class QueryManager extends BaseManager {
     @Autowired private SortedSet<BaseQuery> services;
 
     public List<LocationModel> getAllData(String query) {

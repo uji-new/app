@@ -6,12 +6,13 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import app.error.AuthenticationError;
+import app.manager.generic.BaseManager;
 import app.manager.generic.SessionProperty;
 import app.model.AccountModel;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class SessionManager {
+public class SessionManager extends BaseManager {
     private HttpSession session;
 
     private String getKeyName(SessionProperty key) {

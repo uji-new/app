@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 
 import app.dao.AccountDao;
 import app.error.AuthenticationError;
+import app.manager.generic.BaseManager;
 import app.model.AccountModel;
 
 @Service
-public class AccountManager {
+public class AccountManager extends BaseManager {
     @Autowired private AccountDao accountDao;
 
     public AccountModel newGuest() {
