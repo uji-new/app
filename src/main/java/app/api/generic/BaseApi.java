@@ -27,7 +27,7 @@ import lombok.Getter;
 
 @JsonAutoDetect(getterVisibility = Visibility.NONE)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public abstract class BaseApi<T extends Enum<T> & BaseType<T>, I, O> implements Comparable<BaseApi<T, ?, ?>> {
+public abstract class BaseApi<T extends BaseType<T>, I, O> implements Comparable<BaseApi<T, ?, ?>> {
     @JsonProperty @EqualsAndHashCode.Include @Getter private T type;
     @Getter(AccessLevel.PROTECTED) private String url;
     @Getter(AccessLevel.PROTECTED) private Map<String, String> query;

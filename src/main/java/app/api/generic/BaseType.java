@@ -1,4 +1,6 @@
 package app.api.generic;
 
-public interface BaseType<T extends Enum<T> & BaseType<T>> {
+import java.lang.constant.Constable;
+
+public interface BaseType<T extends BaseType<T>> extends Constable, Comparable<T> {
 }
