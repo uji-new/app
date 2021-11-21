@@ -2,6 +2,8 @@ package app.test.acceptance.basic.requirement01;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -21,7 +23,7 @@ public class History01 extends SessionTest {
         var response = client.location.addLocation(name, name);
 
         // Then
-        Mockito.verify(spy.accountManager).saveAccount(Mockito.any());
+        Mockito.verify(spy.accountManager).saveAccount(any());
         response.statusCode(HttpStatus.OK.value());
         var state = client.location.getLocations();
         state.body("size()", equalTo(1));
@@ -38,7 +40,7 @@ public class History01 extends SessionTest {
         var response = client.location.addLocation(name, name);
 
         // Then
-        Mockito.verify(spy.accountManager, Mockito.never()).saveAccount(Mockito.any());
+        Mockito.verify(spy.accountManager, never()).saveAccount(any());
         response.statusCode(HttpStatus.NOT_FOUND.value());
         var state = client.location.getLocations();
         state.body("size()", equalTo(0));
