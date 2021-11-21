@@ -17,6 +17,10 @@ public class LocationClient extends BaseClient {
         return setupRequest().get().then();
     }
 
+    public ValidatableResponse addLocation(String query) {
+        return setupRequest("{query}").pathParam("query", query).post().then();
+    }
+
     public ValidatableResponse addLocation(String query, String alias) {
         return setupRequest("{query}").pathParam("query", query).queryParam("alias", alias).post().then();
     }

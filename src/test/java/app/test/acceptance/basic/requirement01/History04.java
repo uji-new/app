@@ -15,10 +15,10 @@ public class History04 extends SessionTest {
     public void valid() {
         // Given
         var name = "Valencia";
-        var type = ServiceType.WEATHER.name();
-        client.location.addLocation(name, name);
-        client.service.enableService(type);
         var coords = "39.978,-0.033";
+        var type = ServiceType.WEATHER.name();
+        client.location.addLocation(name);
+        client.service.enableService(type);
 
         // When
         var response = client.service.getServicesForLocation(coords);

@@ -24,23 +24,25 @@ public class LocationController extends BaseController {
     }
 
     @PostMapping("/{query}")
-    public Object addLocation(HttpSession rawSession, @PathVariable String query, @RequestParam String alias) {
+    public Object addLocation(HttpSession rawSession, @PathVariable String query, @RequestParam(required = false) String alias) {
         setSessionFrom(rawSession);
         var account = session.getAccount();
         var location = queryManager.getData(query);
-        location.setAlias(alias);
+        if (alias != null)
+            location.setAlias(alias);
         account.addLocation(location);
         saveAccount(account);
         return location;
     }
 
     @PutMapping("/{coords}")
-    public void updateLocation(HttpSession rawSession, @PathVariable String coords, @RequestParam String alias) {
+    public Object updateLocation(HttpSession rawSession, @PathVariable String coords, @RequestParam String alias) {
         setSessionFrom(rawSession);
         var account = session.getAccount();
         var location = account.getLocation(coords);
         location.setAlias(alias);
         saveAccount(account);
+        return location;
     }
 
     @DeleteMapping("/{coords}")

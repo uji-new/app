@@ -23,7 +23,7 @@ public class History04 extends SessionTest {
         var coords = location.getCoords();
         Mockito.doReturn(location).when(spy.queryManager).getData(coords);
         Mockito.doReturn(true).when(spy.weatherService).getData(location);
-        client.location.addLocation(coords, name);
+        client.location.addLocation(coords);
         client.service.enableService(type);
 
         // When

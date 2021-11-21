@@ -16,12 +16,11 @@ public class History02 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var name = "Castellon";
         var coords = "39.978,-0.033";
         Mockito.reset(spy.accountManager);
 
         // When
-        var response = client.location.addLocation(coords, name);
+        var response = client.location.addLocation(coords);
 
         // Then
         Mockito.verify(spy.accountManager).saveAccount(any());
@@ -34,12 +33,11 @@ public class History02 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var name = "INVALIDO";
         var coords = "180.0,360.0";
         Mockito.reset(spy.accountManager);
 
         // When
-        var response = client.location.addLocation(coords, name);
+        var response = client.location.addLocation(coords);
 
         // Then
         Mockito.verify(spy.accountManager, never()).saveAccount(any());
