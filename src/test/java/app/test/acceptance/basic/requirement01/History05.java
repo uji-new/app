@@ -17,7 +17,7 @@ public class History05 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellon de la Plana";
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
         client.location.removeLocation(coords);
@@ -32,13 +32,14 @@ public class History05 extends SessionTest {
         var statePlaces = client.location.getLocations();
         var stateHistory = client.history.getLocations();
         statePlaces.body("size()", equalTo(1));
+        statePlaces.body("get(0).name", equalTo(name));
         stateHistory.body("size()", equalTo(0));
     }
 
     @Test
     public void invalid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellon de la Plana";
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
         Mockito.reset(spy.accountManager);
@@ -52,6 +53,7 @@ public class History05 extends SessionTest {
         var statePlaces = client.location.getLocations();
         var stateHistory = client.history.getLocations();
         statePlaces.body("size()", equalTo(1));
+        statePlaces.body("get(0).name", equalTo(name));
         stateHistory.body("size()", equalTo(0));
     }
 }

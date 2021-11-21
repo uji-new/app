@@ -38,4 +38,3 @@ public class History06 extends SessionTest {
         response.body("size()", equalTo(0));
     }
 }
-
