@@ -18,12 +18,17 @@ public class History04 extends SessionTest {
     public void valid() {
         // Given
         var name = "Valencia";
-        var type = ServiceType.WEATHER.name();
-        var location = new LocationModel(name, 39.980, -0.033);
+        var location = new LocationModel(name, 39.503, -0.405);
+        Mockito.doReturn(location).when(spy.queryManager).getData(name);
+        client.location.addLocation(name);
+
+        name = "NAME";
+        location = new LocationModel(name, 39.980, -0.033);
         var coords = location.getCoords();
         Mockito.doReturn(location).when(spy.queryManager).getData(coords);
         Mockito.doReturn(true).when(spy.weatherService).getData(location);
-        client.location.addLocation(coords);
+
+        var type = ServiceType.WEATHER.name();
         client.service.enableService(type);
 
         // When
