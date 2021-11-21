@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
-import app.model.LocationModel;
 import app.test.generic.SessionTest;
 
 // Como usuario quiero obtener el topónimo más próximo a las coordenadas geográficas de una ubicación, con el fin de facilitar la obtención de información en múltiples fuentes públicas (API).
@@ -14,8 +13,7 @@ public class History07 extends SessionTest {
     public void valid() {
         // Given
         var name = "Castelló de la Plana";
-        var location = new LocationModel(name, 39.980, -0.033);
-        var coords = location.getCoords();
+        var coords = "39.980,-0.033";
 
         // When
         var response = client.query.query(coords);
