@@ -3,7 +3,7 @@ package app.test.integration.basic.requirement01;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.hasItem;
 
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class History06 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(1));
+        response.body("", hasSize(1));
         response.body("coords", hasItem(coords));
     }
 
@@ -44,6 +44,6 @@ public class History06 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(0));
+        response.body("", hasSize(0));
     }
 }

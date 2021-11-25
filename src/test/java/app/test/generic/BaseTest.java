@@ -23,6 +23,14 @@ public abstract class BaseTest {
         return String.format("%s.%s", history, test);
     }
 
+    protected String setupActiveQuery(String path) {
+        return String.format("findAll{it.active}.%s", path);
+    }
+
+    protected String setupCoordsQuery(String coords, String path) {
+        return String.format("find{it.coords=='%s'}.%s", coords, path);
+    }
+
     @BeforeEach
     public void beforeEach(TestInfo info) {
         client.setPort(port);

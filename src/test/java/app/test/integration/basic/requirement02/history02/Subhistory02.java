@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 import org.springframework.http.HttpStatus;
 
@@ -36,7 +36,7 @@ public class Subhistory02 extends SessionTest {
         Mockito.verify(spy.accountManager).saveAccount(any());
         response.statusCode(HttpStatus.OK.value());
         var status = client.service.getServicesForLocation(coords);
-        status.body("findAll{it.active}.size()", equalTo(0));
+        status.body(setupActiveQuery(""), hasSize(0));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class Subhistory02 extends SessionTest {
         Mockito.verify(spy.accountManager, never()).saveAccount(any());
         response.statusCode(HttpStatus.BAD_REQUEST.value());
         var status = client.service.getServicesForLocation(coords);
-        status.body("findAll{it.active}.size()", equalTo(1));
-        status.body("findAll{it.active}.service.type", hasItem(typeA));
+        status.body(setupActiveQuery(""), hasSize(1));
+        status.body(setupActiveQuery("service.type"), hasItem(typeA));
     }
 }

@@ -3,7 +3,7 @@ package app.test.integration.basic.requirement02;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.hasItem;
 
 import org.springframework.http.HttpStatus;
@@ -37,8 +37,8 @@ public class History03 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("findAll{it.active}.size()", equalTo(1));
-        response.body("findAll{it.active}.service.type", hasItem(type));
+        response.body(setupActiveQuery(""), hasSize(1));
+        response.body(setupActiveQuery("service.type"), hasItem(type));
     }
 
     @Test

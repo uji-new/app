@@ -1,6 +1,6 @@
 package app.test.acceptance.basic.requirement01;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.hasItem;
 
 import org.junit.jupiter.api.Test;
@@ -29,8 +29,8 @@ public class History09 extends SessionTest {
         response.statusCode(HttpStatus.OK.value());
         var statePlaces = client.location.getLocations();
         var stateHistory = client.history.getLocations();
-        statePlaces.body("size()", equalTo(0));
-        stateHistory.body("size()", equalTo(1));
+        statePlaces.body("", hasSize(0));
+        stateHistory.body("", hasSize(1));
         stateHistory.body("name", hasItem(name));
     }
 
@@ -51,8 +51,8 @@ public class History09 extends SessionTest {
         response.statusCode(HttpStatus.NOT_FOUND.value());
         var statePlaces = client.location.getLocations();
         var stateHistory = client.history.getLocations();
-        statePlaces.body("size()", equalTo(0));
-        stateHistory.body("size()", equalTo(1));
+        statePlaces.body("", hasSize(0));
+        stateHistory.body("", hasSize(1));
         stateHistory.body("name", hasItem(name));
     }
 }

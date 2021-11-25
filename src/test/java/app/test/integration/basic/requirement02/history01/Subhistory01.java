@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 import org.springframework.http.HttpStatus;
 
@@ -31,7 +31,7 @@ public class Subhistory01 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(2));
+        response.body("", hasSize(2));
         response.body("name", hasItems(nameA, nameB));
     }
 
@@ -45,6 +45,6 @@ public class Subhistory01 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(0));
+        response.body("", hasSize(0));
     }
 }

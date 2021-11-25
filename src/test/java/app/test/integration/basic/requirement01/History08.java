@@ -1,7 +1,7 @@
 package app.test.integration.basic.requirement01;
 
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -32,7 +32,7 @@ public class History08 extends SessionTest {
         Mockito.verify(spy.accountManager).saveAccount(any());
         response.statusCode(HttpStatus.OK.value());
         var state = client.location.getLocations();
-        state.body("size()", equalTo(1));
+        state.body("", hasSize(1));
         state.body("alias", hasItem(alias));
     }
 
@@ -51,7 +51,7 @@ public class History08 extends SessionTest {
         // Then
         Mockito.verify(spy.accountManager, never()).saveAccount(any());
         var state = client.location.getLocations();
-        state.body("size()", equalTo(1));
+        state.body("", hasSize(1));
         state.body("alias", hasItem(name));
     }
 }

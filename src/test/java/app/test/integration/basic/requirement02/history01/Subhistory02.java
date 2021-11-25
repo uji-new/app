@@ -5,7 +5,7 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.any;
 
 import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 import org.springframework.http.HttpStatus;
 
@@ -37,8 +37,8 @@ public class Subhistory02 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("findAll{it.active}.size()", equalTo(2));
-        response.body("findAll{it.active}.service.type", hasItems(typeA, typeB));
+        response.body(setupActiveQuery(""), hasSize(2));
+        response.body(setupActiveQuery("service.type"), hasItems(typeA, typeB));
     }
 
     @Test

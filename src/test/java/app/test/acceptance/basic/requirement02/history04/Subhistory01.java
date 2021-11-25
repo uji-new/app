@@ -2,6 +2,7 @@ package app.test.acceptance.basic.requirement02.history04;
 
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.springframework.http.HttpStatus;
@@ -10,10 +11,6 @@ import app.test.generic.SessionTest;
 
 // Como usuario quiero consultar fácilmente la información de cualquiera de las ubicaciones activas por separado.
 public class Subhistory01 extends SessionTest {
-    protected String getQueryFiltering(String coords, String path) {
-        return String.format("find{it.coords=='%s'}.%s", coords, path);
-    }
-
     @Test
     public void valid() {
         // Given
@@ -29,10 +26,10 @@ public class Subhistory01 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(2));
-        response.body(getQueryFiltering(coords, "name"), equalTo(nameB));
-        response.body(getQueryFiltering(coords, "alias"), equalTo(nameB));
-        response.body(getQueryFiltering(coords, "coords"), equalTo(coords));
+        response.body("", hasSize(2));
+        response.body(setupCoordsQuery(coords, "name"), equalTo(nameB));
+        response.body(setupCoordsQuery(coords, "alias"), equalTo(nameB));
+        response.body(setupCoordsQuery(coords, "coords"), equalTo(coords));
     }
 
     @Test
@@ -53,6 +50,6 @@ public class Subhistory01 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(0));
+        response.body("", hasSize(0));
     }
 }

@@ -5,7 +5,7 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.never;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.hasItem;
 
 import org.springframework.http.HttpStatus;
@@ -34,9 +34,9 @@ public class History05 extends SessionTest {
         response.statusCode(HttpStatus.OK.value());
         var statePlaces = client.location.getLocations();
         var stateHistory = client.history.getLocations();
-        statePlaces.body("size()", equalTo(1));
+        statePlaces.body("", hasSize(1));
         statePlaces.body("name", hasItem(name));
-        stateHistory.body("size()", equalTo(0));
+        stateHistory.body("", hasSize(0));
     }
 
     @Test
@@ -57,8 +57,8 @@ public class History05 extends SessionTest {
         response.statusCode(HttpStatus.NOT_FOUND.value());
         var statePlaces = client.location.getLocations();
         var stateHistory = client.history.getLocations();
-        statePlaces.body("size()", equalTo(1));
+        statePlaces.body("", hasSize(1));
         statePlaces.body("name", hasItem(name));
-        stateHistory.body("size()", equalTo(0));
+        stateHistory.body("", hasSize(0));
     }
 }

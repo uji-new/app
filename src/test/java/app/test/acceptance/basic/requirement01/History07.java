@@ -1,6 +1,6 @@
 package app.test.acceptance.basic.requirement01;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.hasItem;
 
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ public class History07 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(1));
+        response.body("", hasSize(1));
         response.body("name", hasItem(name));
     }
 
@@ -35,6 +35,6 @@ public class History07 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(0));
+        response.body("", hasSize(0));
     }
 }
