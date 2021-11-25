@@ -2,8 +2,7 @@ package app.test.acceptance.basic.requirement02.history01;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.springframework.http.HttpStatus;
@@ -17,6 +16,7 @@ public class Subhistory01 extends SessionTest {
         // Given
         var nameA = "Castellon de la Plana";
         client.location.addLocation(nameA);
+
         var nameB = "Alicante";
         client.location.addLocation(nameB);
 
@@ -26,8 +26,7 @@ public class Subhistory01 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("size()", equalTo(2));
-        response.body("", hasItem(hasEntry("name", nameA)));
-        response.body("", hasItem(hasEntry("name", nameB)));
+        response.body("name", hasItems(nameA, nameB));
     }
 
     @Test

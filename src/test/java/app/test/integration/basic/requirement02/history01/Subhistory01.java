@@ -3,8 +3,7 @@ package app.test.integration.basic.requirement02.history01;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.equalTo;
 
 import org.springframework.http.HttpStatus;
@@ -21,6 +20,7 @@ public class Subhistory01 extends SessionTest {
         var locationMockA = new LocationModel(nameA, 39.980, -0.033);
         Mockito.doReturn(locationMockA).when(spy.queryManager).getData(nameA);
         client.location.addLocation(nameA);
+
         var nameB = "Alicante";
         var locationMockB = new LocationModel(nameB, 38.53996, -0.50579);
         Mockito.doReturn(locationMockB).when(spy.queryManager).getData(nameB);
@@ -32,8 +32,7 @@ public class Subhistory01 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("size()", equalTo(2));
-        response.body("", hasItem(hasEntry("name", nameA)));
-        response.body("", hasItem(hasEntry("name", nameB)));
+        response.body("name", hasItems(nameA, nameB));
     }
 
     @Test
