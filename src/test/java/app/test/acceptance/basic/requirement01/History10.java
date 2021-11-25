@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 
 import app.test.generic.SessionTest;
 
-// Como usuario quiero desactivar una ubicación activa, con el fin de reducir temporalmente la cantidad de información a consultar.
+// Como usuario quiero dar de baja una ubicación disponible, con el fin de eliminar información que ya no resulta de interés.
 public class History10 extends SessionTest {
     @Test
     public void valid() {
