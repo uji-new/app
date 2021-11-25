@@ -17,17 +17,17 @@ import io.restassured.path.json.JsonPath;
 @Service
 @ConfigurationProperties("app.api.currents")
 public class NewsService extends BaseService {
-    protected String getLocalQuery(String path) {
+    protected String getQueryFiltering(String path) {
         return String.format("news.findAll{it.title.length() < it.description.length()}.%s", path);
     }
 
     @Override
     protected Object extractData(JsonPath body) {
-        List<String> title = body.getList(getLocalQuery("title"));
-        List<String> description = body.getList(getLocalQuery("description"));
-        List<String> url = body.getList(getLocalQuery("url"));
-        List<String> author = body.getList(getLocalQuery("author"));
-        List<String> image = body.getList(getLocalQuery("image"));
+        List<String> title = body.getList(getQueryFiltering("title"));
+        List<String> description = body.getList(getQueryFiltering("description"));
+        List<String> url = body.getList(getQueryFiltering("url"));
+        List<String> author = body.getList(getQueryFiltering("author"));
+        List<String> image = body.getList(getQueryFiltering("image"));
         return IntStream.range(0, title.size()).mapToObj(i -> {
             var authRaw = author.get(i);
             var imgRaw = image.get(i);

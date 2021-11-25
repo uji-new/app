@@ -26,7 +26,7 @@ public class EventsService extends BaseService {
         return super.setupRequest(info).queryParam("latlong", info.getCoords());
     }
 
-    protected String getLocalQuery(String path) {
+    protected String getQueryFiltering(String path) {
         return String.format("_embedded.events*.%s", path);
     }
 
@@ -50,13 +50,13 @@ public class EventsService extends BaseService {
 
     @Override
     protected Object extractData(JsonPath body) {
-        List<String> url = body.getList(getLocalQuery("url"));
-        List<String> title = body.getList(getLocalQuery("name"));
-        List<String> author = body.getList(getLocalQuery("promoter.name"));
-        List<List<Map<String, String>>> image = body.getList(getLocalQuery("images"));
-        List<List<Map<String, Number>>> price = body.getList(getLocalQuery("priceRanges"));
-        List<Map<String, Map<String, String>>> date = body.getList(getLocalQuery("dates"));
-        List<List<Map<String, Map<String, String>>>> location = body.getList(getLocalQuery("_embedded.venues"));
+        List<String> url = body.getList(getQueryFiltering("url"));
+        List<String> title = body.getList(getQueryFiltering("name"));
+        List<String> author = body.getList(getQueryFiltering("promoter.name"));
+        List<List<Map<String, String>>> image = body.getList(getQueryFiltering("images"));
+        List<List<Map<String, Number>>> price = body.getList(getQueryFiltering("priceRanges"));
+        List<Map<String, Map<String, String>>> date = body.getList(getQueryFiltering("dates"));
+        List<List<Map<String, Map<String, String>>>> location = body.getList(getQueryFiltering("_embedded.venues"));
         return IntStream.range(0, title == null ? 0 : title.size()).mapToObj(i -> {
             return Map.of("title", title.get(i), "date", getDateFrom(date.get(i)), "url", url.get(i), "author", author.get(i), "image", getImageFrom(image.get(i)), "price", getPriceFrom(price.get(i)), "location", getLocationFrom(location.get(i)));
         }).toList();

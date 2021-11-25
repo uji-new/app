@@ -22,15 +22,15 @@ public class NameQuery extends BaseQuery {
         return super.setupRequest(info).queryParam("term", info);
     }
 
-    protected String getLocalQuery(String path) {
+    protected String getQueryFiltering(String path) {
         var country = getQuery().get("locale");
         return String.format("findAll{it.country_code == '%s'}.%s", country, path);
     }
 
     @Override
     protected List<LocationModel> extractData(JsonPath body) {
-        List<String> nameList = body.getList(getLocalQuery("name"));
-        List<Map<String, Number>> coordsList = body.getList(getLocalQuery("coordinates"));
+        List<String> nameList = body.getList(getQueryFiltering("name"));
+        List<Map<String, Number>> coordsList = body.getList(getQueryFiltering("coordinates"));
         return IntStream.range(0, nameList.size()).mapToObj(i -> {
             var name = nameList.get(i);
             var coords = coordsList.get(i);
