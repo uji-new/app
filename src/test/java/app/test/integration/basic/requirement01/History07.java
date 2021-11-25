@@ -1,6 +1,7 @@
 package app.test.integration.basic.requirement01;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +29,7 @@ public class History07 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("size()", equalTo(1));
-        response.body("get(0).name", equalTo(name));
+        response.body("name", hasItem(name));
     }
 
     @Test

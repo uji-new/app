@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 
 import org.springframework.http.HttpStatus;
 
@@ -35,8 +36,8 @@ public class History03 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("size()", equalTo(1));
-        response.body("get(0).service.type", equalTo(type));
-        response.body("get(0).data", equalTo(true));
+        response.body("service.type", hasItem(type));
+        response.body("data", hasItem(true));
     }
 
     @Test

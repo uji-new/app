@@ -1,6 +1,7 @@
 package app.test.integration.basic.requirement01;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -33,7 +34,7 @@ public class History09 extends SessionTest {
         var stateHistory = client.history.getLocations();
         statePlaces.body("size()", equalTo(0));
         stateHistory.body("size()", equalTo(1));
-        stateHistory.body("get(0).name", equalTo(name));
+        stateHistory.body("name", hasItem(name));
     }
 
     @Test
@@ -57,6 +58,6 @@ public class History09 extends SessionTest {
         var stateHistory = client.history.getLocations();
         statePlaces.body("size()", equalTo(0));
         stateHistory.body("size()", equalTo(1));
-        stateHistory.body("get(0).name", equalTo(name));
+        stateHistory.body("name", hasItem(name));
     }
 }

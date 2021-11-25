@@ -6,6 +6,7 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.never;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 
 import org.springframework.http.HttpStatus;
 
@@ -31,7 +32,7 @@ public class History01 extends SessionTest {
         response.statusCode(HttpStatus.OK.value());
         var state = client.location.getLocations();
         state.body("size()", equalTo(1));
-        state.body("get(0).name", equalTo(name));
+        state.body("name", hasItem(name));
     }
 
     @Test

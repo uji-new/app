@@ -3,6 +3,7 @@ package app.test.acceptance.basic.requirement01;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItem;
 
 import org.springframework.http.HttpStatus;
 
@@ -26,7 +27,7 @@ public class History04 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("size()", equalTo(1));
-        response.body("get(0).service.type", equalTo(type));
+        response.body("service.type", hasItem(type));
     }
 
     @Test
