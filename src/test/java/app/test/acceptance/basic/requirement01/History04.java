@@ -26,8 +26,8 @@ public class History04 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(1));
-        response.body("service.type", hasItem(type));
+        response.body("findAll{it.active}.size()", equalTo(1));
+        response.body("findAll{it.active}.service.type", hasItem(type));
     }
 
     @Test

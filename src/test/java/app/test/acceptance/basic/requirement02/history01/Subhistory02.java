@@ -30,8 +30,8 @@ public class Subhistory02 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(2));
-        response.body("service.type", hasItems(typeA, typeB));
+        response.body("findAll{it.active}.size()", equalTo(2));
+        response.body("findAll{it.active}.service.type", hasItems(typeA, typeB));
     }
 
     @Test

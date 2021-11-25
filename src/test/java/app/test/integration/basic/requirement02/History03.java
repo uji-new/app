@@ -1,4 +1,4 @@
-package app.test.integration.basic.requirement01;
+package app.test.integration.basic.requirement02;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,8 +13,8 @@ import app.error.MissingError;
 import app.model.LocationModel;
 import app.test.generic.SessionTest;
 
-// Como usuario quiero validar las coordenadas geográficas de una ubicación disponible en los servicios API activos, con el fin de evaluar su utilidad.
-public class History04 extends SessionTest {
+// Como usuario quiero consultar fácilmente la lista de ubicaciones activas.
+public class History03 extends SessionTest {
     @Test
     public void valid() {
         // Given

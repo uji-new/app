@@ -35,9 +35,9 @@ public class History03 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body("size()", equalTo(1));
-        response.body("service.type", hasItem(type));
-        response.body("data", hasItem(true));
+        response.body("findAll{it.active}.size()", equalTo(1));
+        response.body("findAll{it.active}.service.type", hasItem(type));
+        response.body("findAll{it.active}.data", hasItem(true));
     }
 
     @Test
