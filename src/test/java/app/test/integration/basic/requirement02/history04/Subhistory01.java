@@ -12,7 +12,7 @@ import app.model.LocationModel;
 import app.test.generic.SessionTest;
 
 // Como usuario quiero consultar fácilmente la información de cualquiera de las ubicaciones activas por separado.
-public class Subhistory04 extends SessionTest {
+public class Subhistory01 extends SessionTest {
     @Test
     public void valid() {
         // Given
