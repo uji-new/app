@@ -68,6 +68,6 @@ public class Subhistory02 extends SessionTest {
         var response = client.service.getServicesForLocation(coords);
 
         // Then
-        response.statusCode(HttpStatus.NOT_FOUND.value());
+        response.statusCode(HttpStatus.OK.value());
     }
 }
