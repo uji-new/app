@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.hamcrest.Matchers.hasSize;
+
+import java.util.Map;
+
 import static org.hamcrest.Matchers.equalTo;
 
 import org.springframework.http.HttpStatus;
@@ -33,9 +36,7 @@ public class Subhistory01 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("", hasSize(2));
-        response.body(setupCoordsQuery(coords, "name"), equalTo(nameB));
-        response.body(setupCoordsQuery(coords, "alias"), equalTo(nameB));
-        response.body(setupCoordsQuery(coords, "coords"), equalTo(coords));
+        response.body(setupCoordsQuery(coords, ""), equalTo(Map.of("name", nameB, "alias", nameB, "coords", coords)));
     }
 
     @Test

@@ -10,7 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import app.model.generic.BaseModel;
 import lombok.AccessLevel;
@@ -29,13 +32,14 @@ class LocationId implements Serializable {
 @Entity
 @NoArgsConstructor
 @IdClass(LocationId.class)
+@JsonAutoDetect(getterVisibility = Visibility.NONE)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 public class LocationModel extends BaseModel implements Comparable<LocationModel> {
     @Id @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore @Setter(AccessLevel.PROTECTED) private AccountModel account;
     @Id @Getter private double latitude;
     @Id @Getter private double longitude;
-    @EqualsAndHashCode.Include @Getter private String name;
-    @Setter @Getter private String alias;
+    @JsonProperty @EqualsAndHashCode.Include @Getter private String name;
+    @JsonProperty @Setter @Getter private String alias;
 
     public LocationModel(String name, double latitude, double longitude) {
         this.name = name;
@@ -44,6 +48,7 @@ public class LocationModel extends BaseModel implements Comparable<LocationModel
         this.longitude = longitude;
     }
 
+    @JsonProperty
     @EqualsAndHashCode.Include
     public String getCoords() {
         return String.format(Locale.ROOT, "%.3f,%.3f", latitude, longitude);
