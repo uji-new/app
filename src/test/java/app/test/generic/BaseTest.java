@@ -23,12 +23,23 @@ public abstract class BaseTest {
         return String.format("%s.%s", history, test);
     }
 
+    private String setupQuery(String filter, String path) {
+        return String.format("%s.%s", filter, path);
+    }
+
     protected String setupActiveQuery(String path) {
-        return String.format("findAll{it.active}.%s", path);
+        var filter = "findAll{it.active}";
+        return setupQuery(filter, path);
     }
 
     protected String setupCoordsQuery(String coords, String path) {
-        return String.format("find{it.coords=='%s'}.%s", coords, path);
+        var filter = String.format("find{it.coords=='%s'}", coords);
+        return setupQuery(filter, path);
+    }
+
+    protected String setupServiceQuery(String type, String path) {
+        var filter = String.format("find{it.service.type=='%s'}", type);
+        return setupQuery(filter, path);
     }
 
     @BeforeEach

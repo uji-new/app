@@ -13,6 +13,7 @@ import app.error.MissingError;
 import app.model.LocationModel;
 import app.test.generic.SessionTest;
 
+// TODO
 // Como usuario quiero consultar fácilmente la lista de ubicaciones activas.
 public class History03 extends SessionTest {
     @Test
