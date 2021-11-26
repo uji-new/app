@@ -25,7 +25,7 @@ public class SessionController extends BaseController {
     public void login(HttpSession rawSession, @RequestParam String mail, @RequestParam String password) {
         setSessionFrom(rawSession);
         var account = accountManager.getAccount(mail);
-        account.validatePassword(password);    
+        account.validatePassword(password);
         session.saveAccount(account);
     }
 
@@ -33,7 +33,7 @@ public class SessionController extends BaseController {
     public void loginAsGuest(HttpSession rawSession) {
         setSessionFrom(rawSession);
         var account = accountManager.newGuest();
-        saveAccount(account);
+        session.saveAccount(account);
     }
 
     @DeleteMapping

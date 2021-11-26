@@ -54,7 +54,7 @@ public class AccountModel extends BaseModel {
     }
 
     public void validatePassword(String password) {
-        if (!passwordEncryptor.checkPassword(password, this.password));
+        if (!passwordEncryptor.checkPassword(password, this.password))
             throw new AuthenticationError();
     }
 
