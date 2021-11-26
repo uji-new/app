@@ -15,7 +15,7 @@ public class History01 extends BaseTest {
     @Test
     public void valid1(TestInfo info) {
         // Given
-        // No user
+        // No account
         var id = getId(info);
         Mockito.reset(spy.accountManager);
 
