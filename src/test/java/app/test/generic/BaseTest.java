@@ -27,8 +27,8 @@ public abstract class BaseTest {
         return String.format("%s.%s", filter, path);
     }
 
-    protected String setupActiveQuery(String path) {
-        var filter = "findAll{it.active}";
+    protected String setupEnabledQuery(boolean enabled, String path) {
+        var filter = String.format("findAll{it.enabled==%b}", enabled);
         return setupQuery(filter, path);
     }
 

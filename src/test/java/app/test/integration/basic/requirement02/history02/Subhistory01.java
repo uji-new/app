@@ -36,8 +36,8 @@ public class Subhistory01 extends SessionTest {
         Mockito.verify(spy.accountManager).saveAccount(any());
         response.statusCode(HttpStatus.OK.value());
         var status = client.service.getServicesForLocation(coords);
-        status.body(setupActiveQuery(""), hasSize(1));
-        status.body(setupActiveQuery("service.type"), hasItem(type));
+        status.body(setupEnabledQuery(true, ""), hasSize(1));
+        status.body(setupEnabledQuery(true, "service.type"), hasItem(type));
     }
 
     @Test
@@ -61,6 +61,6 @@ public class Subhistory01 extends SessionTest {
         Mockito.verify(spy.accountManager, never()).saveAccount(any());
         response.statusCode(HttpStatus.BAD_REQUEST.value());
         var status = client.service.getServicesForLocation(coords);
-        status.body(setupActiveQuery(""), hasSize(0));
+        status.body(setupEnabledQuery(true, ""), hasSize(0));
     }
 }

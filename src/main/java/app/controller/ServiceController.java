@@ -27,8 +27,8 @@ public class ServiceController extends BaseController {
         var services = account.getServices();
         return serviceManager.getServices().stream().map(service -> {
             var type = service.getType();
-            var active = services.contains(type);
-            return Map.of("service", service, "active", active);
+            var enabled = services.contains(type);
+            return Map.of("service", service, "enabled", enabled);
         }).toList();
     }
 
@@ -70,12 +70,12 @@ public class ServiceController extends BaseController {
         var services = location.getServices();
         return account.getServices().stream().parallel().map(type -> {
             var service = serviceManager.getService(type);
-            var active = services.contains(type);
+            var enabled = services.contains(type);
             Object data = false;
-            if (active) try {
+            if (enabled) try {
                 data = service.getData(location);
             } catch (AssertionError ignored) {}
-            return Map.of("service", service, "active", active, "data", data);
+            return Map.of("service", service, "enabled", enabled, "data", data);
         }).toList();
     }
 

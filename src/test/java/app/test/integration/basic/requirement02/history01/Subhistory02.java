@@ -37,8 +37,8 @@ public class Subhistory02 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body(setupActiveQuery(""), hasSize(2));
-        response.body(setupActiveQuery("service.type"), hasItems(typeA, typeB));
+        response.body(setupEnabledQuery(true, ""), hasSize(2));
+        response.body(setupEnabledQuery(true, "service.type"), hasItems(typeA, typeB));
     }
 
     @Test

@@ -35,9 +35,9 @@ public class History03 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body(setupActiveQuery(""), hasSize(1));
-        response.body(setupActiveQuery("service.type"), hasItem(type));
-        response.body(setupActiveQuery("data"), hasItem(true));
+        response.body(setupEnabledQuery(true, ""), hasSize(1));
+        response.body(setupEnabledQuery(true, "service.type"), hasItem(type));
+        response.body(setupEnabledQuery(true, "data"), hasItem(true));
     }
 
     @Test
