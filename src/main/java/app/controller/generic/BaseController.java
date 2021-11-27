@@ -25,7 +25,8 @@ public abstract class BaseController {
     }
 
     protected void saveAccount(AccountModel account) {
-        accountManager.saveAccount(account);
+        if (!account.isTransient())
+            accountManager.saveAccount(account);
         session.saveAccount(account);
     }
 }

@@ -34,8 +34,7 @@ public class AccountManager extends BaseManager {
     }
 
     public void saveAccount(AccountModel account) {
-        if (!account.isTransient())
-            accountDao.save(account);
+        accountDao.save(account);
     }
 
     public void deleteAccount(String mail) {
