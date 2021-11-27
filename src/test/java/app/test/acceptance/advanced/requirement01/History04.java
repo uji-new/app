@@ -1,18 +1,14 @@
 package app.test.acceptance.advanced.requirement01;
 
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.never;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
-import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 
 import app.test.generic.BaseTest;
 
-// Como usuario quiero poder crear unas credenciales únicas que sirvan para identificarse en la aplicación.
-public class History01 extends BaseTest {
+// Como usuario quiero poder iniciar sesión con unas credenciales únicas para que se me identifique temporalmente en la aplicación.
+public class History04 extends BaseTest {
     @Override
     @AfterEach
     public void afterEach(TestInfo info) {
@@ -23,18 +19,16 @@ public class History01 extends BaseTest {
     @Test
     public void valid(TestInfo info) {
         // Given
-        // No account
         var id = getId(info);
-        Mockito.reset(spy.accountManager);
+        client.account.register(id, id);
+        client.session.logout();
 
         // When
-        var response = client.account.register(id, id);
+        var response = client.session.login(id, id);
 
         // Then
-        Mockito.verify(spy.accountManager).saveAccount(any());
         response.statusCode(HttpStatus.OK.value());
-        client.session.logout();
-        var state = client.session.login(id, id);
+        var state = client.session.getSession();
         state.statusCode(HttpStatus.OK.value());
     }
 
@@ -42,18 +36,18 @@ public class History01 extends BaseTest {
     public void invalid(TestInfo info) {
         // Given
         var id = getId(info);
+        var idNew = id + "Nuevo";
         client.account.register(id, id);
         client.session.logout();
-        Mockito.reset(spy.accountManager);
 
         // When
-        var response = client.account.register(id, id);
+        var response = client.session.login(idNew, idNew);
 
         // Then
-        Mockito.verify(spy.accountManager, never()).saveAccount(any());
-        response.statusCode(HttpStatus.CONFLICT.value());
-        client.session.logout();
-        var state = client.session.login(id, id);
+        response.statusCode(HttpStatus.UNAUTHORIZED.value());
+        var state = client.session.getSession();
+        state.statusCode(HttpStatus.UNAUTHORIZED.value());
+        state = client.session.login(id, id);
         state.statusCode(HttpStatus.OK.value());
     }
 }

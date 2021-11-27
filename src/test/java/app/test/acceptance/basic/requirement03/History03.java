@@ -24,7 +24,7 @@ public class History03 extends SessionTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        response.body(setupServiceQuery(type, "service"), equalTo(Map.of("type", type, "name", "Clima", "description", "Informacion actual sobre el estado metrológico")));
+        response.body(setupServiceQuery(type, "service"), equalTo(Map.of("type", type, "name", spy.weatherService.getName(), "description", spy.weatherService.getDescription())));
     }
 
     @Test
