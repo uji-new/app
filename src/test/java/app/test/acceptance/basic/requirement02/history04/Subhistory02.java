@@ -14,7 +14,7 @@ import app.test.generic.SessionTest;
 // Como usuario quiero consultar fácilmente la información del clima sobre un una ubicación activa
 public class Subhistory02 extends SessionTest {
     @Test
-    public void valid() {
+    public void valid1() {
         // Given
         var type = ServiceType.WEATHER.name();
         client.service.enableService(type);
@@ -40,7 +40,7 @@ public class Subhistory02 extends SessionTest {
     }
 
     @Test
-    public void invalid() {
+    public void valid2() {
         // Given
         var type = ServiceType.WEATHER.name();
         client.service.enableService(type);
@@ -59,6 +59,10 @@ public class Subhistory02 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("", hasSize(1));
-        // Weather service always responds
+        response.body(setupServiceQuery(type, "data.temp"), instanceOf(Number.class));
+        response.body(setupServiceQuery(type, "data.rain"), instanceOf(Number.class));
+        response.body(setupServiceQuery(type, "data.wind"), instanceOf(Number.class));
+        response.body(setupServiceQuery(type, "data.icon"), instanceOf(String.class));
+        response.body(setupServiceQuery(type, "data.description"), instanceOf(String.class));
     }
 }
