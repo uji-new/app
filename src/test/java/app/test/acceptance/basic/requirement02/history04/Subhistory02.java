@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.hasSize;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.closeTo;
 import static org.hamcrest.Matchers.instanceOf;
 
 import org.springframework.http.HttpStatus;
