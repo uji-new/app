@@ -1,16 +1,16 @@
-package app.test.integration.basic.requirement02.history04;
+package app.test.acceptance.basic.requirement02.history04;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.hamcrest.Matchers.hasSize;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.closeTo;
+import static org.hamcrest.Matchers.instanceOf;
 
 import org.springframework.http.HttpStatus;
 
 import app.api.service.generic.ServiceType;
-import app.model.LocationModel;
 import app.test.generic.SessionTest;
 
 // Como usuario quiero consultar fácilmente la información del clima sobre un una ubicación activa
@@ -22,16 +22,11 @@ public class Subhistory02 extends SessionTest {
         client.service.enableService(type);
 
         var name = "Valencia";
-        var locationMock = new LocationModel(name, 39.503, -0.405);
-        Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         client.location.addLocation(name);
 
         name = "Castellon";
-        locationMock = new LocationModel(name, 39.980, -0.033);
-        Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
-        Mockito.doReturn(true).when(spy.weatherService).getData(locationMock);
 
         // When
         var response = client.service.getServicesForLocation(coords);
@@ -39,7 +34,11 @@ public class Subhistory02 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("", hasSize(1));
-        response.body(setupServiceQuery(type, "data"), equalTo(true));
+        response.body(setupServiceQuery(type, "data.temp"), instanceOf(Number.class));
+        response.body(setupServiceQuery(type, "data.rain"), instanceOf(Number.class));
+        response.body(setupServiceQuery(type, "data.wind"), instanceOf(Number.class));
+        response.body(setupServiceQuery(type, "data.icon"), instanceOf(String.class));
+        response.body(setupServiceQuery(type, "data.description"), instanceOf(String.class));
     }
 
     @Test
@@ -49,16 +48,11 @@ public class Subhistory02 extends SessionTest {
         client.service.enableService(type);
 
         var name = "Valencia";
-        var locationMock = new LocationModel(name, 39.503, -0.405);
-        Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         client.location.addLocation(name);
 
         name = "Guadalquivir";
-        locationMock = new LocationModel(name, 37.912,-3.004);
-        Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
-        Mockito.doReturn(false).when(spy.weatherService).getData(locationMock);
 
         // When
         var response = client.service.getServicesForLocation(coords);
