@@ -4,19 +4,24 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.hasSize;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
+
+import java.util.Collections;
+
+import static org.hamcrest.Matchers.everyItem;
 
 import org.springframework.http.HttpStatus;
 
 import app.api.service.generic.ServiceType;
 import app.test.generic.SessionTest;
 
-// Como usuario quiero consultar fácilmente la información del clima sobre un una ubicación activa
-public class Subhistory02 extends SessionTest {
+// Como usuario quiero consultar fácilmente la información de eventos sobre un una ubicación activa.
+public class Subhistory03 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var type = ServiceType.WEATHER.name();
+        var type = ServiceType.EVENTS.name();
         client.service.enableService(type);
 
         var name = "Valencia";
@@ -32,17 +37,19 @@ public class Subhistory02 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("", hasSize(1));
-        response.body(setupServiceQuery(type, "data.temp"), instanceOf(Number.class));
-        response.body(setupServiceQuery(type, "data.rain"), instanceOf(Number.class));
-        response.body(setupServiceQuery(type, "data.wind"), instanceOf(Number.class));
-        response.body(setupServiceQuery(type, "data.icon"), instanceOf(String.class));
-        response.body(setupServiceQuery(type, "data.description"), instanceOf(String.class));
+        response.body(setupServiceQuery(type, "data.title"), everyItem(instanceOf(String.class)));
+        response.body(setupServiceQuery(type, "data.date"), everyItem(instanceOf(String.class)));
+        response.body(setupServiceQuery(type, "data.url"), everyItem(instanceOf(String.class)));
+        response.body(setupServiceQuery(type, "data.author"), everyItem(instanceOf(String.class)));
+        response.body(setupServiceQuery(type, "data.image"), everyItem(instanceOf(String.class)));
+        response.body(setupServiceQuery(type, "data.price"), everyItem(instanceOf(Number.class)));
+        response.body(setupServiceQuery(type, "data.location"), everyItem(instanceOf(String.class)));
     }
 
     @Test
     public void invalid() {
         // Given
-        var type = ServiceType.WEATHER.name();
+        var type = ServiceType.EVENTS.name();
         client.service.enableService(type);
 
         var name = "Valencia";
@@ -59,6 +66,6 @@ public class Subhistory02 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("", hasSize(1));
-        // Weather service always responds
+        response.body(setupServiceQuery(type, "data"), equalTo(Collections.emptyList()));
     }
 }

@@ -5,6 +5,8 @@ import org.mockito.Mockito;
 
 import static org.hamcrest.Matchers.hasSize;
 
+import java.util.Collections;
+
 import static org.hamcrest.Matchers.equalTo;
 
 import org.springframework.http.HttpStatus;
@@ -13,12 +15,12 @@ import app.api.service.generic.ServiceType;
 import app.model.LocationModel;
 import app.test.generic.SessionTest;
 
-// Como usuario quiero consultar fácilmente la información del clima sobre un una ubicación activa
-public class Subhistory02 extends SessionTest {
+// Como usuario quiero consultar fácilmente la información de eventos sobre un una ubicación activa.
+public class Subhistory03 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var type = ServiceType.WEATHER.name();
+        var type = ServiceType.EVENTS.name();
         client.service.enableService(type);
 
         var name = "Valencia";
@@ -31,7 +33,7 @@ public class Subhistory02 extends SessionTest {
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
-        Mockito.doReturn(true).when(spy.weatherService).getData(locationMock);
+        Mockito.doReturn(true).when(spy.eventsService).getData(locationMock);
 
         // When
         var response = client.service.getServicesForLocation(coords);
@@ -45,7 +47,7 @@ public class Subhistory02 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var type = ServiceType.WEATHER.name();
+        var type = ServiceType.EVENTS.name();
         client.service.enableService(type);
 
         var name = "Valencia";
@@ -59,7 +61,7 @@ public class Subhistory02 extends SessionTest {
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(coords);
         var location = client.location.addLocation(coords, alias);
         coords = location.extract().jsonPath().getString("coords");
-        Mockito.doReturn(false).when(spy.weatherService).getData(locationMock);
+        Mockito.doReturn(Collections.emptyList()).when(spy.eventsService).getData(locationMock);
 
         // When
         var response = client.service.getServicesForLocation(coords);
@@ -67,6 +69,6 @@ public class Subhistory02 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("", hasSize(1));
-        response.body(setupServiceQuery(type, "data"), equalTo(false));
+        response.body(setupServiceQuery(type, "data"), equalTo(Collections.emptyList()));
     }
 }
