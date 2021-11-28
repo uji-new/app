@@ -16,7 +16,7 @@ import app.test.generic.SessionTest;
 // Como usuario quiero consultar fácilmente la información del clima sobre un una ubicación activa
 public class Subhistory02 extends SessionTest {
     @Test
-    public void valid() {
+    public void valid1() {
         // Given
         var type = ServiceType.WEATHER.name();
         client.service.enableService(type);
@@ -43,7 +43,7 @@ public class Subhistory02 extends SessionTest {
     }
 
     @Test
-    public void invalid() {
+    public void valid2() {
         // Given
         var type = ServiceType.WEATHER.name();
         client.service.enableService(type);
@@ -51,15 +51,17 @@ public class Subhistory02 extends SessionTest {
         var name = "Valencia";
         var locationMock = new LocationModel(name, 39.503, -0.405);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
-        client.location.addLocation(name);
+        var location = client.location.addLocation(name);
+        var coords = location.extract().jsonPath().getString("coords");
+        client.location.removeLocation(coords);
 
         var alias = "Antarctica";
         locationMock = new LocationModel(name, -78.159, 16.406);
-        var coords = locationMock.getCoords();
+        coords = locationMock.getCoords();
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(coords);
-        var location = client.location.addLocation(coords, alias);
+        location = client.location.addLocation(coords, alias);
         coords = location.extract().jsonPath().getString("coords");
-        Mockito.doReturn(false).when(spy.weatherService).getData(locationMock);
+        Mockito.doReturn(true).when(spy.weatherService).getData(locationMock);
 
         // When
         var response = client.service.getServicesForLocation(coords);
@@ -67,6 +69,6 @@ public class Subhistory02 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("", hasSize(1));
-        response.body(setupServiceQuery(type, "data"), equalTo(false));
+        response.body(setupServiceQuery(type, "data"), equalTo(true));
     }
 }

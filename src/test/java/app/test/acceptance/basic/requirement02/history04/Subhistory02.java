@@ -46,11 +46,13 @@ public class Subhistory02 extends SessionTest {
         client.service.enableService(type);
 
         var name = "Valencia";
-        client.location.addLocation(name);
+        var location = client.location.addLocation(name);
+        var coords = location.extract().jsonPath().getString("coords");
+        client.location.removeLocation(coords);
 
         var alias = "Antarctica";
-        var coords = "-78.159,16.406";
-        var location = client.location.addLocation(coords, alias);
+        coords = "-78.159,16.406";
+        location = client.location.addLocation(coords, alias);
         coords = location.extract().jsonPath().getString("coords");
 
         // When
