@@ -15,10 +15,10 @@ import app.model.LocationModel;
 import io.restassured.path.json.JsonPath;
 
 @Service
-@ConfigurationProperties("app.api.newsapi")
+@ConfigurationProperties("app.api.currents")
 public class NewsService extends BaseService {
     protected String setupQuery(String path) {
-        return String.format("articles.%s", path);
+        return String.format("news.findAll{it.title.length() < it.description.length()}.%s", path);
     }
 
     @Override
@@ -27,9 +27,13 @@ public class NewsService extends BaseService {
         List<String> description = body.getList(setupQuery("description"));
         List<String> url = body.getList(setupQuery("url"));
         List<String> author = body.getList(setupQuery("author"));
-        List<String> image = body.getList(setupQuery("url2Image"));
+        List<String> image = body.getList(setupQuery("image"));
         return IntStream.range(0, title.size()).mapToObj(i -> {
-            return Map.of("title", title.get(i), "description", description.get(i), "url", url.get(i), "author", author.get(i), "image", image.get(i));
+            var authRaw = author.get(i);
+            var imgRaw = image.get(i);
+            Object auth = authRaw.equals("") ? false : authRaw;
+            Object img = imgRaw.equals("None") ? false : imgRaw;
+            return Map.of("title", title.get(i), "description", description.get(i), "url", url.get(i), "author", auth, "image", img);
         }).toList();
     }
 
