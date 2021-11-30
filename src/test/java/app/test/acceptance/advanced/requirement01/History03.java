@@ -1,6 +1,7 @@
 package app.test.acceptance.advanced.requirement01;
 
 import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,6 @@ import org.springframework.http.HttpStatus;
 
 import app.test.generic.BaseTest;
 
-// TODO
 // Como usuario quiero poder cambiar la contraseña de una cuenta para que en el próximo inicio de sesión la única contraseña válida sea la nueva contraseña introducida.
 public class History03 extends BaseTest {
     @Override
@@ -44,15 +44,15 @@ public class History03 extends BaseTest {
         // Given
         var id = getId(info);
         client.account.register(id, id);
+        client.session.logout();
         Mockito.reset(spy.accountManager);
 
         // When
         var response = client.account.updateAccount(id);
 
         // Then
-        Mockito.verify(spy.accountManager).saveAccount(any());
-        response.statusCode(HttpStatus.OK.value());  // Test expects CONFLICT
-        client.session.logout();
+        Mockito.verify(spy.accountManager, never()).saveAccount(any());
+        response.statusCode(HttpStatus.UNAUTHORIZED.value());
         var state = client.session.login(id, id);
         state.statusCode(HttpStatus.OK.value());
     }

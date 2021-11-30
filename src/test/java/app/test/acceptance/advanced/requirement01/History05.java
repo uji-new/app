@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 
 import app.test.generic.BaseTest;
 
-// TODO
 // Como usuario quiero poder cerrar sesión con unas credenciales únicas para que no me identifique temporalmente la aplicación.
 public class History05 extends BaseTest {
     @Override
@@ -45,7 +44,7 @@ public class History05 extends BaseTest {
         var response = client.session.logout();
 
         // Then
-        response.statusCode(HttpStatus.OK.value());  // Test expects UNAUTHORIZED
+        response.statusCode(HttpStatus.OK.value());
         var state = client.session.getSession();
         state.statusCode(HttpStatus.UNAUTHORIZED.value());
         state = client.session.login(id, id);
