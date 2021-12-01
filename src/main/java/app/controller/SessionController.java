@@ -15,7 +15,7 @@ import app.controller.generic.BaseController;
 @RequestMapping("/session")
 public class SessionController extends BaseController {
     @GetMapping
-    public Object getSession(HttpSession rawSession) {
+    public Object getAccount(HttpSession rawSession) {
         setSessionFrom(rawSession);
         var account = session.getAccount();
         return account;

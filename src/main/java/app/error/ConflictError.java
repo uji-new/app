@@ -6,5 +6,5 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import app.error.generic.BaseError;
 
 @ResponseStatus(HttpStatus.CONFLICT)
-public class ConfilictError extends BaseError {
+public class ConflictError extends BaseError {
 }

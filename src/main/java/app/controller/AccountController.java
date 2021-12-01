@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.controller.generic.BaseController;
-import app.error.ConfilictError;
+import app.error.ConflictError;
 
 @RestController
 @RequestMapping("/account")
@@ -20,7 +20,7 @@ public class AccountController extends BaseController {
         setSessionFrom(rawSession);
         synchronized (mail.intern()) {
             if (accountManager.existsAccount(mail))
-                throw new ConfilictError();
+                throw new ConflictError();
             var account = accountManager.newAccount(mail, password);
             saveAccount(account);
         }

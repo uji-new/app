@@ -13,7 +13,7 @@ public class SessionClient extends BaseClient {
         return super.setupRequest(prefixArgs("session", path));
     }
 
-    public ValidatableResponse getSession() {
+    public ValidatableResponse getAccount() {
         return setupRequest().get().then();
     }
 

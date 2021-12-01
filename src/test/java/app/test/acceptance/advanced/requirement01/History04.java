@@ -28,7 +28,7 @@ public class History04 extends BaseTest {
 
         // Then
         response.statusCode(HttpStatus.OK.value());
-        var state = client.session.getSession();
+        var state = client.session.getAccount();
         state.statusCode(HttpStatus.OK.value());
     }
 
@@ -45,7 +45,7 @@ public class History04 extends BaseTest {
 
         // Then
         response.statusCode(HttpStatus.UNAUTHORIZED.value());
-        var state = client.session.getSession();
+        var state = client.session.getAccount();
         state.statusCode(HttpStatus.UNAUTHORIZED.value());
         state = client.session.login(id, id);
         state.statusCode(HttpStatus.OK.value());
