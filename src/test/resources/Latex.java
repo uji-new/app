@@ -69,7 +69,7 @@ public class Latex {
             else if (lineas.get(i).startsWith("}")) end = i + 1;
         }
 
-        var head = String.format("El siguiente test está en el repositorio \\texttt{app} del proyecto y se encuentran en la ruta: \\begin{itemize}\\setlength{\\itemindent}{-7mm}\\item [\\faIcon{code-branch}]\\texttt{%s}\\end{itemize}", path);
+        var head = String.format("El siguiente test está en el repositorio \\texttt{app} del proyecto y se encuentra en la ruta: \\begin{itemize}\\setlength{\\itemindent}{-7mm}\\item [\\faIcon{code-branch}]\\texttt{%s}\\end{itemize}", path);
         var body = String.format("\\lstinputlisting[language=java, breaklines=true, linerange=%s-%s, firstnumber=%s, caption={%s}]{%s}", start, end, start, name, path);
         return String.format("%s\n%s", head, body);
     }
