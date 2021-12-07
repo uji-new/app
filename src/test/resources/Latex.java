@@ -33,7 +33,7 @@ public class Latex {
 
             var lines = getTests(path);
             var cmd = String.format("\\newcommand\\test%s%c{", capitalize(variant), letter);
-            lines.add(0, cmd); lines.add("}"); lines.add("");
+            lines.add(0, cmd); lines.add("}\n");
             cmd = String.join("\n", lines);
             System.out.println(cmd);
         }
