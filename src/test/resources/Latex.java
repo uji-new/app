@@ -65,7 +65,6 @@ public class Latex {
         }
         for (var i = 0; i < lineas.size(); i++) {
             if (lineas.get(i).startsWith("public")) start = i + 1;
-           
             else if (lineas.get(i).startsWith("}")) end = i + 1;
         }
 
