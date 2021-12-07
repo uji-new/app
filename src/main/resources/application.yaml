@@ -5,7 +5,7 @@ server:
   port: 8080
 app:
   configuration:
-    timeout: 5s
+    timeout: 8s
   api:
     geocode:
       type: COORDS
@@ -13,7 +13,7 @@ app:
       query:
         region: ES
         geoit: json
-        auth: 652442250644293959177x41458
+        auth: 293497454417286439298x74154
     travelpayouts:
       type: NAME
       url: http://autocomplete.travelpayouts.com/places2
@@ -57,7 +57,7 @@ app:
       description: Informacion diaria sobre las noticias del último momento
       url: https://newsapi.org/v2/top-headlines
       query:
-        language: ES
+        country: ES
         apiKey: 5085f201079f402f9846ff38b481d04d
 ---
 spring:

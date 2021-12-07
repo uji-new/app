@@ -14,6 +14,7 @@ find "$BASE" -type f | grep -v 'generic' | sed -E "$FLIP" | sort | sed -E "$PILF
 	LEVEL=$(sed 's:^.*/a.*:avanzado:;s:^.*/b.*:básico:' <<< "$SRC")
 	CMD_LEVEL=$(sed 's:^a.*:A:;s:^b.*:B:' <<< "$LEVEL")
 	NAME=$(grep -oP '[0-9]+' <<< "$SRC" | sed -E '1s/^/R/;2s/^/H/;3s/^/S/' | tr '\n' '.')
-	CMD="test$CMD_LEVEL$(tr '1234567890' 'abcdefghij' <<< "$NAME" | tr -d '.')$CMD_TYPE"
+	CMD_NAME=$(tr '1234567890' 'abcdefghij' <<< "$NAME" | tr -d '.')
+	CMD="test$CMD_LEVEL$CMD_NAME$CMD_TYPE"
 	echo "\\newcommand\\$CMD{\\lstinputlisting[language=java, breaklines=true, linerange=$START-$END, firstnumber=$START, caption={Test de $TYPE del requisito $LEVEL $NAME}]{$ESAB$SRC}}"
 done | sed '/I/G'
