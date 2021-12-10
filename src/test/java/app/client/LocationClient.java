@@ -25,6 +25,10 @@ public class LocationClient extends BaseClient {
         return setupRequest("{query}").pathParam("query", query).queryParam("alias", alias).post().then();
     }
 
+    public ValidatableResponse updateLocation(String coords) {
+        return setupRequest("{coords}").pathParam("coords", coords).put().then();
+    }
+
     public ValidatableResponse updateLocation(String coords, String alias) {
         return setupRequest("{coords}").pathParam("coords", coords).queryParam("alias", alias).put().then();
     }
