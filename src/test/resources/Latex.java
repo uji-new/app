@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Latex {
+    Path docBase = Path.of("code/test");
     Path pathBase = Path.of("src/test/java/app/test");
     List<String> variants = List.of("acceptance", "integration");
     Map<String, String> tanslate = Map.of(
@@ -52,11 +53,12 @@ public class Latex {
         return variants.stream().map(v -> Path.of(v).resolve(path)).map(this::getTest).collect(Collectors.toList());
     }
 
-    public String getTest(Path path) {
+    public String getTest(Path pathName) {
         List<String> lineas;
         int start = 0, end = 0;
-        var name = transalte(path.toString());
-        path = pathBase.resolve(path);
+        var path = pathBase.resolve(pathName);
+        var name = transalte(pathName.toString());
+        var pathDoc = docBase.resolve(pathName).toString();
 
         try {
             lineas = Files.readAllLines(path);
@@ -69,7 +71,7 @@ public class Latex {
         }
 
         var head = String.format("El siguiente test está en el repositorio \\texttt{app} del proyecto y se encuentra en la ruta: \\begin{itemize}\\setlength{\\itemindent}{-7mm}\\item [\\faIcon{code-branch}]\\texttt{%s}\\end{itemize}", path);
-        var body = String.format("\\lstinputlisting[language=java, breaklines=true, linerange=%s-%s, firstnumber=%s, caption={%s}]{%s}", start, end, start, name, path);
+        var body = String.format("\\lstinputlisting[language=java, breaklines=true, linerange=%s-%s, firstnumber=%s, caption={%s}]{%s}", start, end, start, name, pathDoc);
         return String.format("%s\n%s", head, body);
     }
 
