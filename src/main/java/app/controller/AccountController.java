@@ -29,11 +29,12 @@ public class AccountController extends BaseController {
     public void register(HttpSession rawSession, @RequestParam String mail, @RequestParam String password) {
         setSessionFrom(rawSession);
         var account = getAccount();
-        account.setMail(mail);
-        account.encryptAndSetPassword(password);
         synchronized (mail.intern()) {
             if (accountManager.existsAccount(mail))
                 throw new ConflictError();
+            account.setTransient(false);
+            account.setMail(mail);
+            account.encryptAndSetPassword(password);
             saveAccount(account);
         }
     }
