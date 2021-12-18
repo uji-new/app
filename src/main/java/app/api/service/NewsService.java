@@ -13,10 +13,18 @@ import org.springframework.stereotype.Service;
 import app.api.service.generic.BaseService;
 import app.model.LocationModel;
 import io.restassured.path.json.JsonPath;
+import io.restassured.specification.RequestSpecification;
 
 @Service
 @ConfigurationProperties("app.api.newsapi")
 public class NewsService extends BaseService {
+    @Override
+    protected RequestSpecification setupRequest(LocationModel info) {
+        // Too restrictive and inaccurate
+        // ...queryParam("q", info.getName())
+        return super.setupRequest(info);
+    }
+
     protected String setupQuery(String path) {
         return String.format("articles.%s", path);
     }
