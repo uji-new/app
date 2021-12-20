@@ -1,4 +1,4 @@
-# App (backend + frontend submodule)
+# Project (backend + frontend submodule)
 ## Setup
 - Terminal: `git clone --recurse-submodules URL`
 - IDE: [guide for IntelliJ IDEA](https://www.jetbrains.com/help/idea/manage-projects-hosted-on-github.html#clone-from-GitHub)
