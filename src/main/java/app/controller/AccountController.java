@@ -10,18 +10,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.controller.generic.BaseController;
+import app.error.AuthenticationError;
 import app.error.ConflictError;
+import app.model.AccountModel;
 
 @RestController
 @RequestMapping("/account")
 public class AccountController extends BaseController {
+    protected AccountModel getAccount() {
+        try {
+            return session.getAccount();
+        } catch (AuthenticationError ignored) {
+            return accountManager.newAccount();
+        }
+    }
+
     @PostMapping
     public void register(HttpSession rawSession, @RequestParam String mail, @RequestParam String password) {
         setSessionFrom(rawSession);
+        var account = getAccount();
         synchronized (mail.intern()) {
             if (accountManager.existsAccount(mail))
                 throw new ConflictError();
-            var account = accountManager.newAccount(mail, password);
+            account.setTransient(false);
+            account.setMail(mail);
+            account.encryptAndSetPassword(password);
             saveAccount(account);
         }
     }

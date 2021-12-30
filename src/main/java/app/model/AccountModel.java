@@ -32,7 +32,7 @@ import lombok.Setter;
 @JsonAutoDetect(getterVisibility = Visibility.NONE)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 public class AccountModel extends BaseModel {
-    @Id @Getter @EqualsAndHashCode.Include @JsonProperty private String mail;
+    @Id @Setter @Getter @EqualsAndHashCode.Include @JsonProperty private String mail;
     private String password;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @SortNatural private SortedSet<LocationModel> locations = new TreeSet<>();
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @SortNatural private SortedSet<LocationModel> history = new TreeSet<>();
@@ -41,12 +41,6 @@ public class AccountModel extends BaseModel {
 
     public AccountModel() {
         enableAllServices();
-    }
-
-    public AccountModel(String mail, String password) {
-        this();
-        this.mail = mail;
-        encryptAndSetPassword(password);
     }
 
     public void encryptAndSetPassword(String password) {

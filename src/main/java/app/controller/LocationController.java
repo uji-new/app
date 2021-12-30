@@ -36,10 +36,12 @@ public class LocationController extends BaseController {
     }
 
     @PutMapping("/{coords}")
-    public Object updateLocation(HttpSession rawSession, @PathVariable String coords, @RequestParam String alias) {
+    public Object updateLocation(HttpSession rawSession, @PathVariable String coords, @RequestParam(required = false) String alias) {
         setSessionFrom(rawSession);
         var account = session.getAccount();
         var location = account.getLocation(coords);
+        if (alias == null)
+            alias = location.getName();
         location.setAlias(alias);
         saveAccount(account);
         return location;

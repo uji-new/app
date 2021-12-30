@@ -16,13 +16,13 @@ public class AccountManager extends BaseManager {
     @Autowired private AccountDao accountDao;
 
     public AccountModel newGuest() {
-        var account = new AccountModel();
+        var account = newAccount();
         account.setTransient(true);
         return account;
     }
 
-    public AccountModel newAccount(String mail, String password) {
-        return new AccountModel(mail, password);
+    public AccountModel newAccount() {
+        return new AccountModel();
     }
 
     public boolean existsAccount(String mail) {

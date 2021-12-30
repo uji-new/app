@@ -4,8 +4,6 @@ spring:
 server:
   port: 8080
 app:
-  configuration:
-    timeout: 8s
   api:
     geocode:
       type: COORDS
@@ -70,6 +68,9 @@ spring:
     show-sql: false
     hibernate:
       ddl-auto: update
+app:
+  configuration:
+    timeout: 8s
 ---
 spring:
   config:
@@ -81,3 +82,6 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+app:
+  configuration:
+    timeout: 64s
