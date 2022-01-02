@@ -35,7 +35,7 @@ public class EventsService extends BaseService {
     }
 
     protected Double getPriceFrom(List<Map<String, Number>> prices) {
-        return prices.stream().mapToDouble(map -> map.get("min").doubleValue()).max().orElseThrow(ServiceError::new);
+        return prices == null ? null : prices.stream().mapToDouble(map -> map.get("min").doubleValue()).max().orElseThrow(ServiceError::new);
     }
 
     protected String getDateFrom(Map<String, Map<String, String>> dates) {
@@ -58,7 +58,9 @@ public class EventsService extends BaseService {
         List<Map<String, Map<String, String>>> date = body.getList(setupQuery("dates"));
         List<List<Map<String, Map<String, String>>>> location = body.getList(setupQuery("_embedded.venues"));
         return IntStream.range(0, title == null ? 0 : title.size()).mapToObj(i -> {
-            return Map.of("title", title.get(i), "date", getDateFrom(date.get(i)), "url", url.get(i), "author", author.get(i), "image", getImageFrom(image.get(i)), "price", getPriceFrom(price.get(i)), "location", getLocationFrom(location.get(i)));
+            var priRaw = getPriceFrom(price.get(i));
+            Object pri = priRaw == null ? false : priRaw;
+            return Map.of("title", title.get(i), "date", getDateFrom(date.get(i)), "url", url.get(i), "author", author.get(i), "image", getImageFrom(image.get(i)), "price", pri, "location", getLocationFrom(location.get(i)));
         }).toList();
     }
 
