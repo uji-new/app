@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: MAIN
+  jpa:
+    open-in-view: true
 server:
   port: 8080
 app:

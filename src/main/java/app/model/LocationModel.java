@@ -23,10 +23,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 class LocationId implements Serializable {
-    private AccountModel account;
+    @EqualsAndHashCode.Include private AccountModel account;
     private double latitude;
     private double longitude;
+
+    @EqualsAndHashCode.Include
+    public String getCoords() {
+        return String.format(Locale.ROOT, "%.3f,%.3f", latitude, longitude);
+    }
 }
 
 @Entity
@@ -38,7 +44,7 @@ public class LocationModel extends BaseModel implements Comparable<LocationModel
     @Id @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore @Setter(AccessLevel.PROTECTED) private AccountModel account;
     @Id @Getter private double latitude;
     @Id @Getter private double longitude;
-    @JsonProperty @EqualsAndHashCode.Include @Getter private String name;
+    @JsonProperty @Getter private String name;
     @JsonProperty @Setter @Getter private String alias;
 
     public LocationModel(String name, double latitude, double longitude) {
