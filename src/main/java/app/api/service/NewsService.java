@@ -21,7 +21,7 @@ public class NewsService extends BaseService {
     @Override
     protected RequestSpecification setupRequest(LocationModel info) {
         // Restrictive and inaccurate
-        return super.setupRequest(info).queryParam("q", info.getName()).log().uri();
+        return super.setupRequest(info).queryParam("q", info.getName());
     }
 
     protected String setupQuery(String path) {
