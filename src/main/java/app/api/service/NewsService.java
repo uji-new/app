@@ -21,7 +21,7 @@ public class NewsService extends BaseService {
     @Override
     protected RequestSpecification setupRequest(LocationModel info) {
         // Restrictive and inaccurate
-        return super.setupRequest(info).queryParam("q", info.getName());
+        return super.setupRequest(info).queryParam("q", info.getName()).log().uri();
     }
 
     protected String setupQuery(String path) {
@@ -32,17 +32,24 @@ public class NewsService extends BaseService {
         return author.substring(0, 1).toUpperCase() + author.substring(1);
     }
 
+    public String getDescriptionFrom(String description) {
+        return description.split("\\.", 2)[0] + ".";
+    }
+
     @Override
     protected Object extractData(JsonPath body) {
         List<String> title = body.getList(setupQuery("title"));
         List<String> description = body.getList(setupQuery("description"));
+        List<String> descriptionLong = body.getList(setupQuery("full_description"));
         List<String> url = body.getList(setupQuery("link"));
         List<String> author = body.getList(setupQuery("source_id"));
         List<String> image = body.getList(setupQuery("image_url"));
         return IntStream.range(0, title.size()).mapToObj(i -> {
             var imgRaw = image.get(i);
+            var descRaw = description.get(i);
             Object img = imgRaw == null ? false : imgRaw;
-            return Map.of("title", title.get(i), "description", description.get(i), "url", url.get(i), "author", getAuthorFrom(author.get(i)), "image", img);
+            Object desc = descRaw == null ? getDescriptionFrom(descriptionLong.get(i)) : descRaw;
+            return Map.of("title", title.get(i), "description", desc, "url", url.get(i), "author", getAuthorFrom(author.get(i)), "image", img);
         }).toList();
     }
 
