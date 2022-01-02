@@ -21,7 +21,7 @@ public class NewsService extends BaseService {
     @Override
     protected RequestSpecification setupRequest(LocationModel info) {
         // Restrictive and inaccurate
-        return super.setupRequest(info).queryParam("q", info.getName()).log().uri();
+        return super.setupRequest(info).queryParam("q", info.getName());
     }
 
     protected String setupQuery(String path) {
@@ -50,5 +50,5 @@ public class NewsService extends BaseService {
     @Cacheable(lifetime = 1, unit = TimeUnit.DAYS)
     public Object getData(LocationModel info) {
         return super.getData(info);
-    }    
+    }
 }
