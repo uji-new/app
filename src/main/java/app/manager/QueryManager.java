@@ -18,18 +18,10 @@ public class QueryManager extends BaseManager {
     @Autowired private CoordsQuery normalQuery;
 
     public List<LocationModel> getAllData(String query) {
-        return services.stream().parallel().flatMap(service -> service.getData(query).stream()).map(this::normalize).toList();
-    }
-
-    private LocationModel getFirst(List<LocationModel> locations) {
-        return locations.stream().findFirst().orElseThrow(MissingError::new);
-    }
-
-    private LocationModel normalize(LocationModel location) {
-        return getFirst(normalQuery.getData(location.getCoords()));
+        return services.stream().parallel().flatMap(service -> service.getData(query).stream()).flatMap(location -> normalQuery.getData(location.getCoords()).stream()).toList();
     }
 
     public LocationModel getData(String query) {
-        return getFirst(getAllData(query));
+        return getAllData(query).stream().findFirst().orElseThrow(MissingError::new);
     }
 }
