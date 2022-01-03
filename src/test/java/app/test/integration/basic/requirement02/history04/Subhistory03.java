@@ -69,6 +69,6 @@ public class Subhistory03 extends SessionTest {
         // Then
         response.statusCode(HttpStatus.OK.value());
         response.body("", hasSize(1));
-        response.body(setupServiceQuery(type, "data"), equalTo(Collections.emptyList()));
+        response.body(setupServiceQuery(type, "data"), hasSize(0));
     }
 }

@@ -16,17 +16,16 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
 
 @Service
-@ConfigurationProperties("app.api.newsapi")
+@ConfigurationProperties("app.api.currents")
 public class NewsService extends BaseService {
     @Override
     protected RequestSpecification setupRequest(LocationModel info) {
-        // Too restrictive and inaccurate
-        // ...queryParam("q", info.getName())
-        return super.setupRequest(info);
+        // Restrictive and inaccurate
+        return super.setupRequest(info).queryParam("keywords", info.getName());
     }
 
     protected String setupQuery(String path) {
-        return String.format("articles.%s", path);
+        return String.format("news.findAll{it.title.length() < it.description.length()}.%s", path);
     }
 
     @Override
@@ -35,25 +34,19 @@ public class NewsService extends BaseService {
         List<String> description = body.getList(setupQuery("description"));
         List<String> url = body.getList(setupQuery("url"));
         List<String> author = body.getList(setupQuery("author"));
-        List<String> image = body.getList(setupQuery("url2Image"));
+        List<String> image = body.getList(setupQuery("image"));
         return IntStream.range(0, title.size()).mapToObj(i -> {
-            var descRaw = description.get(i);
             var authRaw = author.get(i);
             var imgRaw = image.get(i);
-            Object desc = descRaw == null ? false : descRaw;
-            Object auth = authRaw == null ? false : authRaw;
-            Object img = imgRaw == null ? false : imgRaw;
-            return Map.of("title", title.get(i), "description", desc, "url", url.get(i), "author", auth, "image", img);
+            Object auth = authRaw.equals("") ? false : authRaw;
+            Object img = imgRaw.equals("None") ? false : imgRaw;
+            return Map.of("title", title.get(i), "description", description.get(i), "url", url.get(i), "author", auth, "image", img);
         }).toList();
     }
 
-    @Cacheable(lifetime = 1, unit = TimeUnit.DAYS)
-    public Object getGlobalData() {
-        return super.getData(null);
-    }
-
     @Override
+    @Cacheable(lifetime = 1, unit = TimeUnit.DAYS)
     public Object getData(LocationModel info) {
-        return getGlobalData();
-    }    
+        return super.getData(info);
+    }
 }

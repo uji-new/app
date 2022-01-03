@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: MAIN
+  jpa:
+    open-in-view: true
 server:
   port: 8080
 app:
@@ -40,23 +42,6 @@ app:
         radius: 100
         countyCode: ES
         apikey: oun77uH0nt2TtvqJCywGlPOw7kHlvEDu
-    currents:
-      type: NEWS
-      name: Noticias
-      description: Informacion diaria sobre las noticias del último momento
-      url: https://api.currentsapi.services/v1/latest-news
-      query:
-        region: ES
-        language: ES
-        apiKey: DEGB9B4zVcjuviCwA5jzR_ZDkajWMlG3MaenO-UGZWNtn-yb
-    newsapi:
-      type: NEWS
-      name: Noticias
-      description: Informacion diaria sobre las noticias del último momento
-      url: https://newsapi.org/v2/top-headlines
-      query:
-        country: ES
-        apiKey: 5085f201079f402f9846ff38b481d04d
     newsdata:
       type: NEWS
       name: Noticias
@@ -66,6 +51,23 @@ app:
         country: ES
         language: ES
         apikey: pub_32790974bd5ce266b23c8204a3c0047ebbfd
+    currents:  # Unresponsive
+      type: NEWS
+      name: Noticias
+      description: Informacion diaria sobre las noticias del último momento
+      url: https://api.currentsapi.services/v1/latest-news
+      query:
+        region: ES
+        language: ES
+        apiKey: DEGB9B4zVcjuviCwA5jzR_ZDkajWMlG3MaenO-UGZWNtn-yb
+    newsapi:  # Unlocalized
+      type: NEWS
+      name: Noticias
+      description: Informacion diaria sobre las noticias del último momento
+      url: https://newsapi.org/v2/top-headlines
+      query:
+        country: ES
+        apiKey: 5085f201079f402f9846ff38b481d04d
 ---
 spring:
   config:
