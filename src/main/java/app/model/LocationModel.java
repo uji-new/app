@@ -1,6 +1,8 @@
 package app.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.Locale;
 
@@ -23,16 +25,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@EqualsAndHashCode
 class LocationId implements Serializable {
-    @EqualsAndHashCode.Include private AccountModel account;
+    private AccountModel account;
     private double latitude;
     private double longitude;
-
-    @EqualsAndHashCode.Include
-    public String getCoords() {
-        return String.format(Locale.ROOT, "%.3f,%.3f", latitude, longitude);
-    }
 }
 
 @Entity
@@ -42,22 +39,27 @@ class LocationId implements Serializable {
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 public class LocationModel extends BaseModel implements Comparable<LocationModel> {
     @Id @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore @Setter(AccessLevel.PROTECTED) private AccountModel account;
-    @Id @Getter private double latitude;
-    @Id @Getter private double longitude;
+    @Id @EqualsAndHashCode.Include @Getter private double latitude;
+    @Id @EqualsAndHashCode.Include @Getter private double longitude;
     @JsonProperty @Getter private String name;
     @JsonProperty @Setter @Getter private String alias;
+    final static int scaleCoord = 3;
 
     public LocationModel(String name, double latitude, double longitude) {
         this.name = name;
         this.alias = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.latitude = roundCoord(latitude);
+        this.longitude = roundCoord(longitude);
+    }
+
+    private double roundCoord(double coord) {
+        return new BigDecimal(coord).setScale(scaleCoord, RoundingMode.HALF_UP).doubleValue();
     }
 
     @JsonProperty
-    @EqualsAndHashCode.Include
     public String getCoords() {
-        return String.format(Locale.ROOT, "%.3f,%.3f", latitude, longitude);
+        var format = String.format("%%.%df,%%.%df", scaleCoord, scaleCoord);
+        return String.format(Locale.ROOT, format, latitude, longitude);
     }
 
     @Override
