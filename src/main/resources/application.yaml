@@ -57,6 +57,15 @@ app:
       query:
         country: ES
         apiKey: 5085f201079f402f9846ff38b481d04d
+    newsdata:
+      type: NEWS
+      name: Noticias
+      description: Informacion diaria sobre las noticias del último momento
+      url: https://newsdata.io/api/1/news
+      query:
+        country: ES
+        language: ES
+        apikey: pub_32790974bd5ce266b23c8204a3c0047ebbfd
 ---
 spring:
   config:

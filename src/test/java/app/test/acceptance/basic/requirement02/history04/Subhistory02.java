@@ -19,10 +19,10 @@ public class Subhistory02 extends SessionTest {
         var type = ServiceType.WEATHER.name();
         client.service.enableService(type);
 
-        var name = "Valencia";
+        var name = "Castellon";
         client.location.addLocation(name);
 
-        name = "Castellon";
+        name = "Madrid";
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
 
@@ -45,7 +45,7 @@ public class Subhistory02 extends SessionTest {
         var type = ServiceType.WEATHER.name();
         client.service.enableService(type);
 
-        var name = "Valencia";
+        var name = "Madrid";
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
         client.location.removeLocation(coords);
