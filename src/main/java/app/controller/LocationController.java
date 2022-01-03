@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.controller.generic.BaseController;
+import app.model.LocationModel;
 
 @RestController
 @RequestMapping("/locations")
@@ -27,7 +28,7 @@ public class LocationController extends BaseController {
     public Object addLocation(HttpSession rawSession, @PathVariable String query, @RequestParam(required = false) String alias) {
         setSessionFrom(rawSession);
         var account = session.getAccount();
-        var location = queryManager.getData(query);
+        var location = (LocationModel) queryManager.getData(query).clone();
         if (alias != null)
             location.setAlias(alias);
         account.addLocation(location);

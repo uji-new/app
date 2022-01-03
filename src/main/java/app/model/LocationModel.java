@@ -37,7 +37,7 @@ class LocationId implements Serializable {
 @IdClass(LocationId.class)
 @JsonAutoDetect(getterVisibility = Visibility.NONE)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
-public class LocationModel extends BaseModel implements Comparable<LocationModel> {
+public class LocationModel extends BaseModel implements Comparable<LocationModel>, Cloneable {
     @Id @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore @Setter(AccessLevel.PROTECTED) private AccountModel account;
     @Id @EqualsAndHashCode.Include @Getter private double latitude;
     @Id @EqualsAndHashCode.Include @Getter private double longitude;
@@ -65,5 +65,9 @@ public class LocationModel extends BaseModel implements Comparable<LocationModel
     @Override
     public int compareTo(LocationModel other) {
         return Comparator.comparing(LocationModel::getAlias).thenComparing(LocationModel::getName).thenComparing(LocationModel::getCoords).compare(this, other);
+    }
+
+    public Object clone() {
+        return new LocationModel(name, latitude, longitude);
     }
 }
