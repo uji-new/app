@@ -43,7 +43,7 @@ public class LocationModel extends BaseModel implements Comparable<LocationModel
     @Id @EqualsAndHashCode.Include @Getter private double longitude;
     @JsonProperty @Getter private String name;
     @JsonProperty @Setter @Getter private String alias;
-    final static int scaleCoord = 3;
+    protected final static int scaleCoord = 3;
 
     public LocationModel(String name, double latitude, double longitude) {
         this.name = name;
@@ -52,7 +52,7 @@ public class LocationModel extends BaseModel implements Comparable<LocationModel
         this.longitude = roundCoord(longitude);
     }
 
-    private double roundCoord(double coord) {
+    protected double roundCoord(double coord) {
         return new BigDecimal(coord).setScale(scaleCoord, RoundingMode.HALF_UP).doubleValue();
     }
 
