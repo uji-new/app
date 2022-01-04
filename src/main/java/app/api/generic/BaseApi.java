@@ -82,8 +82,8 @@ public abstract class BaseApi<T extends BaseType<T>, I, O> implements Comparable
     protected abstract O extractData(JsonPath body);
 
     public O getData(I info) {
-        var request = setupRequest(info).log().uri();
-        var response = processRequest(request).then().log().body();
+        var request = setupRequest(info);
+        var response = processRequest(request).then();
         var body = validateResponse(response).extract().jsonPath();
         return extractData(body);
     }
