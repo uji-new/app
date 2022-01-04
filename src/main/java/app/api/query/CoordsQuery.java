@@ -6,7 +6,11 @@ import org.springframework.stereotype.Service;
 import app.api.query.generic.BaseQuery;
 import app.model.LocationModel;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
+
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.equalTo;
 
 import java.util.List;
 
@@ -18,6 +22,11 @@ public class CoordsQuery extends BaseQuery {
     @Override
     protected RequestSpecification setupRequest(String info) {
         return super.setupRequest(info).queryParam("locate", info);
+    }
+
+    @Override
+    protected ValidatableResponse validateResponse(ValidatableResponse response) {
+        return super.validateResponse(response).body("error.code", anyOf(equalTo(null), equalTo("008")));
     }
 
     @Override
