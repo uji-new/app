@@ -34,8 +34,8 @@ import lombok.Setter;
 public class AccountModel extends BaseModel {
     @Id @Setter @Getter @EqualsAndHashCode.Include @JsonProperty private String mail;
     private String password;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @SortNatural private SortedSet<LocationModel> locations = new TreeSet<>();
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @SortNatural private SortedSet<LocationModel> history = new TreeSet<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true) @SortNatural private SortedSet<LocationModel> locations = new TreeSet<>();
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true) @SortNatural private SortedSet<LocationModel> history = new TreeSet<>();
     @Autowired @Transient private PasswordEncryptor passwordEncryptor;
     @Setter @Getter @Transient private boolean Transient = false;
 
