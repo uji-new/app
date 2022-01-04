@@ -14,7 +14,7 @@ public class Subhistory01 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var nameA = "Castellon de la Plana";
+        var nameA = "Castellon";
         client.location.addLocation(nameA);
 
         var nameB = "Alicante";

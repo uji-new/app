@@ -18,7 +18,7 @@ public class History05 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var name = "Castellon de la Plana";
+        var name = "Castellon";
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
         client.location.removeLocation(coords);
@@ -40,7 +40,7 @@ public class History05 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var name = "Castellon de la Plana";
+        var name = "Castellon";
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
         Mockito.reset(spy.accountManager);

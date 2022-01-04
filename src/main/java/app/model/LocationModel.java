@@ -35,12 +35,13 @@ class LocationId implements Serializable {
 @Entity
 @NoArgsConstructor
 @IdClass(LocationId.class)
-@JsonAutoDetect(getterVisibility = Visibility.NONE)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+@JsonAutoDetect(getterVisibility = Visibility.NONE, isGetterVisibility = Visibility.NONE)
 public class LocationModel extends BaseModel implements Comparable<LocationModel>, Cloneable {
     @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore @Setter(AccessLevel.PROTECTED) private AccountModel account;
     @Id @EqualsAndHashCode.Include @Getter private double latitude;
     @Id @EqualsAndHashCode.Include @Getter private double longitude;
+    @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private boolean active = true;
     @JsonProperty @Getter private String name;
     @JsonProperty @Setter @Getter private String alias;
     protected final static int scaleCoord = 3;

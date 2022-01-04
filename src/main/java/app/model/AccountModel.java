@@ -1,6 +1,7 @@
 package app.model;
 
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 import java.util.Collections;
 import java.util.SortedSet;
 
@@ -35,7 +36,6 @@ public class AccountModel extends BaseModel {
     @Id @Setter @Getter @EqualsAndHashCode.Include @JsonProperty private String mail;
     private String password;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true) @SortNatural private SortedSet<LocationModel> locations = new TreeSet<>();
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true) @SortNatural private SortedSet<LocationModel> history = new TreeSet<>();
     @Autowired @Transient private PasswordEncryptor passwordEncryptor;
     @Setter @Getter @Transient private boolean Transient = false;
 
@@ -53,14 +53,18 @@ public class AccountModel extends BaseModel {
     }
 
     public SortedSet<LocationModel> getLocations() {
-        return Collections.unmodifiableSortedSet(locations);
+        return Collections.unmodifiableSortedSet(locations.stream().filter(LocationModel::isActive).collect(Collectors.toCollection(TreeSet::new)));
     }
 
     public SortedSet<LocationModel> getHistory() {
-        return Collections.unmodifiableSortedSet(history);
+        return Collections.unmodifiableSortedSet(locations.stream().filter(location -> !location.isActive()).collect(Collectors.toCollection(TreeSet::new)));
     }
 
     public void addLocation(LocationModel location) {
+        try { removeLocation(location.getCoords()); }
+        catch (MissingError ignore) {}
+        try { removeHistoryLocation(location.getCoords()); }
+        catch (MissingError ignore) {}
         location.setAccount(this);
         location.setServices(getServices());
         locations.add(location);
@@ -71,27 +75,25 @@ public class AccountModel extends BaseModel {
     }
 
     public LocationModel getLocation(String coords) {
-        return getLocationFrom(locations, coords);
+        return getLocationFrom(getLocations(), coords);
     }
 
     public void removeLocation(String coords) {
-        var location = getLocation(coords);
-        locations.remove(location);
-        history.add(location);
+        var location = getLocationFrom(getLocations(), coords);
+        location.setActive(false);
     }
 
     public LocationModel getHistoryLocation(String coords) {
-        return getLocationFrom(history, coords);
+        return getLocationFrom(getHistory(), coords);
     }
 
     public void restoreHistoryLocation(String coords) {
-        var location = getHistoryLocation(coords);
-        removeHistoryLocation(coords);
-        addLocation(location);
+        var location = getLocationFrom(getHistory(), coords);
+        location.setActive(true);
     }
 
     public void removeHistoryLocation(String coords) {
-        var location = getHistoryLocation(coords);
-        history.remove(location);
+        var location = getLocationFrom(getHistory(), coords);
+        locations.remove(location);
     }
 }

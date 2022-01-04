@@ -20,7 +20,7 @@ public class Subhistory01 extends SessionTest {
         var nameA = "Valencia";
         client.location.addLocation(nameA);
 
-        var nameB = "Castellon de la Plana";
+        var nameB = "Castellon";
         var location = client.location.addLocation(nameB);
         var coords = location.extract().jsonPath().getString("coords");
 
@@ -41,7 +41,7 @@ public class Subhistory01 extends SessionTest {
         var coords = location.extract().jsonPath().getString("coords");
         client.location.removeLocation(coords);
 
-        var nameB = "Castellon de la Plana";
+        var nameB = "Castellon";
         location = client.location.addLocation(nameB);
         coords = location.extract().jsonPath().getString("coords");
         client.location.removeLocation(coords);

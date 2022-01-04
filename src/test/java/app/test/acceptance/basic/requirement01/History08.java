@@ -36,7 +36,7 @@ public class History08 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var name = "Castellon de la Plana";
+        var name = "Castellon";
         client.location.addLocation(name);
         Mockito.reset(spy.accountManager);
 

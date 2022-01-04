@@ -14,7 +14,7 @@ public class History01 extends SessionTest {
     public void valid() {
         // Given
         var namePartial = "cast";
-        var name = "Castellon de la Plana";
+        var name = "Castellon";
 
         // When
         var response = client.query.query(namePartial);
