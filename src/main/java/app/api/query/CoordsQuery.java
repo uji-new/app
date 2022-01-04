@@ -22,7 +22,8 @@ public class CoordsQuery extends BaseQuery {
 
     @Override
     protected List<LocationModel> extractData(JsonPath body) {
-        var name = body.getString("city");
+        var name = body.getString("standard.city");
+        if (name == null) name = body.getString("city");
         var latitude = body.getDouble("latt");
         var longitude = body.getDouble("longt");
         return name == null ? List.of() : List.of(newLocation(name, latitude, longitude));
