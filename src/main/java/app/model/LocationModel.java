@@ -38,7 +38,7 @@ class LocationId implements Serializable {
 @JsonAutoDetect(getterVisibility = Visibility.NONE)
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
 public class LocationModel extends BaseModel implements Comparable<LocationModel>, Cloneable {
-    @Id @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore @Setter(AccessLevel.PROTECTED) private AccountModel account;
+    @ManyToOne(fetch = FetchType.LAZY) @JsonIgnore @Setter(AccessLevel.PROTECTED) private AccountModel account;
     @Id @EqualsAndHashCode.Include @Getter private double latitude;
     @Id @EqualsAndHashCode.Include @Getter private double longitude;
     @JsonProperty @Getter private String name;
