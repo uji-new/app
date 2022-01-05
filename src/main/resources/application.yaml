@@ -13,7 +13,7 @@ app:
       query:
         region: ES
         geoit: json
-        auth: 338345084377716207075x50864
+        auth: 200431979155823203323x83340
     travelpayouts:
       type: NAME
       url: http://autocomplete.travelpayouts.com/places2
