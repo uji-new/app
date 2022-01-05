@@ -46,7 +46,7 @@ public class History10 extends SessionTest {
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
         client.location.removeLocation(coords);
-        coords = "39.503,-0.405";
+        coords = "39.50,-0.41";
         Mockito.reset(spy.accountManager);
 
         // When

@@ -39,7 +39,7 @@ public class History02 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var coords = "180.0,360.0";
+        var coords = "180.00,360.00";
         Mockito.doThrow(new MissingError()).when(spy.queryManager).getData(coords);
         Mockito.reset(spy.accountManager);
 

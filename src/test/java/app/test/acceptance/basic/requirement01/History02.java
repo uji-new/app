@@ -17,7 +17,7 @@ public class History02 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var coords = "39.978,-0.033";
+        var coords = "39.98,-0.03";
         Mockito.reset(spy.accountManager);
 
         // When
@@ -34,7 +34,7 @@ public class History02 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var coords = "180.0,360.0";
+        var coords = "180.00,360.00";
         Mockito.reset(spy.accountManager);
 
         // When

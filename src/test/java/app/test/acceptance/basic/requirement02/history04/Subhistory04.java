@@ -55,7 +55,7 @@ public class Subhistory04 extends SessionTest {
         client.location.addLocation(name);
 
         var alias = "Antarctica";
-        var coords = "-78.159,16.406";
+        var coords = "-78.16,16.41";
         var location = client.location.addLocation(coords, alias);
         coords = location.extract().jsonPath().getString("coords");
 

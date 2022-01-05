@@ -16,7 +16,7 @@ public class History04 extends SessionTest {
     public void valid() {
         // Given
         var name = "Valencia";
-        var coords = "39.978,-0.033";
+        var coords = "39.98,-0.03";
         var type = ServiceType.WEATHER.name();
         client.location.addLocation(name);
         client.service.enableService(type);

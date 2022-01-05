@@ -44,7 +44,7 @@ public class LocationModel extends BaseModel implements Comparable<LocationModel
     @Getter(AccessLevel.PROTECTED) @Setter(AccessLevel.PROTECTED) private boolean active = true;
     @JsonProperty @Getter private String name;
     @JsonProperty @Setter @Getter private String alias;
-    protected final static int scaleCoord = 3;
+    protected final static int scaleCoord = 2;
 
     public LocationModel(String name, double latitude, double longitude) {
         this.name = name;

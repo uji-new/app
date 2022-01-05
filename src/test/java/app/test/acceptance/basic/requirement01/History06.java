@@ -15,7 +15,7 @@ public class History06 extends SessionTest {
     public void valid() {
         // Given
         var name = "Castellón";
-        var coords = "39.970,-0.050";
+        var coords = "39.97,-0.05";
 
         // When
         var response = client.query.query(name);
