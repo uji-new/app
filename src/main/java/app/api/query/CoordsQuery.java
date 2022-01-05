@@ -31,7 +31,7 @@ public class CoordsQuery extends BaseQuery {
 
     @Override
     protected List<LocationModel> extractData(JsonPath body) {
-        var name = body.getString("standard.city");
+        var name = body.getString("adminareas.admin6.name_es");
         if (name == null) name = body.getString("city");
         var latitude = body.getDouble("latt");
         var longitude = body.getDouble("longt");

@@ -21,7 +21,7 @@ public class Subhistory02 extends SessionTest {
         var typeB = ServiceType.EVENTS.name();
         client.service.enableService(typeB);
 
-        var name = "Castellon";
+        var name = "Castellón";
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
 

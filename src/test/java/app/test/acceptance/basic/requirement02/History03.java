@@ -14,7 +14,7 @@ public class History03 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var nameA = "Castellon";
+        var nameA = "Castellón";
         client.location.addLocation(nameA);
 
         var nameB = "Alicante";

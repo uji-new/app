@@ -28,7 +28,7 @@ public class Subhistory04 extends SessionTest {
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         client.location.addLocation(name);
 
-        name = "Castellon";
+        name = "Castellón";
         locationMock = new LocationModel(name, 39.980, -0.033);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         var location = client.location.addLocation(name);

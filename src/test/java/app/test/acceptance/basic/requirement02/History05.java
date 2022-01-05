@@ -14,7 +14,7 @@ public class History05 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellón";
         client.location.addLocation(name);
 
         name = "Valencia";
@@ -34,7 +34,7 @@ public class History05 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellón";
         client.location.addLocation(name);
 
         name = "Valencia";

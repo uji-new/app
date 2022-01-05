@@ -18,7 +18,7 @@ public class History05 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellón";
         var locationMock = new LocationModel(name, 39.980, -0.033);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         var location = client.location.addLocation(name);
@@ -42,7 +42,7 @@ public class History05 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellón";
         var locationMock = new LocationModel(name, 39.980, -0.033);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         var location = client.location.addLocation(name);

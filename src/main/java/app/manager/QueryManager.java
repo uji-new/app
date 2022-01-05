@@ -18,7 +18,7 @@ public class QueryManager extends BaseManager {
     @Autowired private CoordsQuery normalQuery;
 
     public List<LocationModel> getAllData(String query) {
-        return services.stream().parallel().flatMap(service -> service.getData(query).stream()).flatMap(location -> normalQuery.getData(location.getCoords()).stream()).toList();
+        return services.stream().parallel().flatMap(service -> service.getData(query).stream()).flatMap(location -> normalQuery.getData(location.getCoords()).stream()).distinct().toList();
     }
 
     public LocationModel getData(String query) {

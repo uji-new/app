@@ -15,7 +15,7 @@ public class History03 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellón";
         var type = ServiceType.WEATHER.name();
         client.location.addLocation(name);
         client.service.enableService(type);

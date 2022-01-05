@@ -24,7 +24,7 @@ public class Subhistory04 extends SessionTest {
         var type = ServiceType.NEWS.name();
         client.service.enableService(type);
 
-        var name = "Castellon";
+        var name = "Castellón";
         client.location.addLocation(name);
 
         name = "Madrid";

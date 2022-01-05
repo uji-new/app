@@ -17,7 +17,7 @@ public class History08 extends SessionTest {
     public void valid() {
         // Given
         var alias = "CS";
-        var name = "Castellon";
+        var name = "Castellón";
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
         Mockito.reset(spy.accountManager);
@@ -36,7 +36,7 @@ public class History08 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellón";
         client.location.addLocation(name);
         Mockito.reset(spy.accountManager);
 

@@ -13,7 +13,7 @@ public class History07 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellón";
         var coords = "39.980,-0.033";
 
         // When

@@ -18,7 +18,7 @@ public class Subhistory02 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellón";
         var type = ServiceType.WEATHER.name();
         client.service.enableService(type);
         var location = client.location.addLocation(name);
@@ -38,7 +38,7 @@ public class Subhistory02 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellón";
         var typeA = ServiceType.WEATHER.name();
         client.service.enableService(typeA);
         var location = client.location.addLocation(name);

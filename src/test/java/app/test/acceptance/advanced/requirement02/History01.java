@@ -17,7 +17,7 @@ public class History01 extends SessionTest {
     @Test
     public void valid() {
         // Given
-        var name = "Castellon";
+        var name = "Castellón";
         client.session.loginAsGuest();
         Mockito.reset(spy.accountManager);
 

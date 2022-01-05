@@ -19,7 +19,7 @@ public class Subhistory02 extends SessionTest {
         var type = ServiceType.WEATHER.name();
         client.service.enableService(type);
 
-        var name = "Castellon";
+        var name = "Castellón";
         client.location.addLocation(name);
 
         name = "Madrid";
