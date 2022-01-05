@@ -20,7 +20,7 @@ public class History01 extends BaseTest {
     public void valid() {
         // Given
         var name = "Castellón";
-        var locationMock = new LocationModel(name, 39.980, -0.033);
+        var locationMock = new LocationModel(name, 39.97, -0.05);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         client.session.loginAsGuest();
         Mockito.reset(spy.accountManager);

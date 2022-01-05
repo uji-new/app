@@ -19,12 +19,12 @@ public class History04 extends SessionTest {
     public void valid() {
         // Given
         var name = "Valencia";
-        var locationMock = new LocationModel(name, 39.503, -0.405);
+        var locationMock = new LocationModel(name, 39.98, -0.03);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         client.location.addLocation(name);
 
         name = "NAME";
-        locationMock = new LocationModel(name, 39.980, -0.033);
+        locationMock = new LocationModel(name, 39.97, -0.05);
         var coords = locationMock.getCoords();
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(coords);
         Mockito.doReturn(true).when(spy.weatherService).getData(locationMock);
@@ -44,7 +44,7 @@ public class History04 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var coords = "180,360";
+        var coords = "180.00,360.00";
         Mockito.doThrow(new MissingError()).when(spy.queryManager).getData(coords);
 
         // When

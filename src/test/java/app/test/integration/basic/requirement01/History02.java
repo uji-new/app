@@ -20,7 +20,7 @@ public class History02 extends SessionTest {
     public void valid() {
         // Given
         var name = "NAME";
-        var locationMock = new LocationModel(name, 39.980, -0.033);
+        var locationMock = new LocationModel(name, 39.97, -0.05);
         var coords = locationMock.getCoords();
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(coords);
         Mockito.reset(spy.accountManager);

@@ -21,7 +21,7 @@ public class Subhistory01 extends SessionTest {
         // Given
         var name = "Castellón";
         var type = ServiceType.WEATHER.name();
-        var locationMock = new LocationModel(name, 39.980, -0.033);
+        var locationMock = new LocationModel(name, 39.97, -0.05);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         Mockito.doReturn(true).when(spy.weatherService).getData(any());
         var location = client.location.addLocation(name);
@@ -45,7 +45,7 @@ public class Subhistory01 extends SessionTest {
         // Given
         var name = "Castellón";
         var type = ServiceType.WEATHER.name();
-        var locationMock = new LocationModel(name, 39.980, -0.033);
+        var locationMock = new LocationModel(name, 39.97, -0.05);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         Mockito.doReturn(true).when(spy.weatherService).getData(any());
         var location = client.location.addLocation(name);

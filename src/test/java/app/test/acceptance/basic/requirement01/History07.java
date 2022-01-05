@@ -14,7 +14,7 @@ public class History07 extends SessionTest {
     public void valid() {
         // Given
         var name = "Castellón";
-        var coords = "39.98,-0.03";
+        var coords = "39.97,-0.05";
 
         // When
         var response = client.query.query(coords);
@@ -28,7 +28,7 @@ public class History07 extends SessionTest {
     @Test
     public void invalid() {
         // Given
-        var coords = "180,360";
+        var coords = "180.00,360.00";
 
         // When
         var response = client.query.query(coords);

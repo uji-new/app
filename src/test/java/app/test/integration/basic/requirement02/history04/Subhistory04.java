@@ -24,12 +24,12 @@ public class Subhistory04 extends SessionTest {
         client.service.enableService(type);
 
         var name = "Valencia";
-        var locationMock = new LocationModel(name, 39.503, -0.405);
+        var locationMock = new LocationModel(name, 39.98, -0.03);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         client.location.addLocation(name);
 
         name = "Castellón";
-        locationMock = new LocationModel(name, 39.980, -0.033);
+        locationMock = new LocationModel(name, 39.97, -0.05);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         var location = client.location.addLocation(name);
         var coords = location.extract().jsonPath().getString("coords");
@@ -51,12 +51,12 @@ public class Subhistory04 extends SessionTest {
         client.service.enableService(type);
 
         var name = "Valencia";
-        var locationMock = new LocationModel(name, 39.503, -0.405);
+        var locationMock = new LocationModel(name, 39.98, -0.03);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         client.location.addLocation(name);
 
         var alias = "Antarctica";
-        locationMock = new LocationModel(name, -78.159, 16.406);
+        locationMock = new LocationModel(name, -78.16, 16.41);
         var coords = locationMock.getCoords();
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(coords);
         var location = client.location.addLocation(coords, alias);

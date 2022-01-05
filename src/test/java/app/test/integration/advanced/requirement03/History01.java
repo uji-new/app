@@ -20,7 +20,7 @@ public class History01 extends SessionTest {
         // Given
         var namePartial = "cast";
         var name = "Castellón";
-        var locationMock = new LocationModel(name, 39.980, -0.033);
+        var locationMock = new LocationModel(name, 39.97, -0.05);
         Mockito.doReturn(List.of(locationMock)).when(spy.queryManager).getAllData(namePartial);
 
         // When

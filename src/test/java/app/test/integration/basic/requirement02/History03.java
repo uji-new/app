@@ -17,12 +17,12 @@ public class History03 extends SessionTest {
     public void valid() {
         // Given
         var nameA = "Castellón";
-        var locationMockA = new LocationModel(nameA, 39.980, -0.033);
+        var locationMockA = new LocationModel(nameA, 39.97, -0.05);
         Mockito.doReturn(locationMockA).when(spy.queryManager).getData(nameA);
         client.location.addLocation(nameA);
 
         var nameB = "Alicante";
-        var locationMockB = new LocationModel(nameB, 38.53996, -0.50579);
+        var locationMockB = new LocationModel(nameB, 38.54, -0.51);
         Mockito.doReturn(locationMockB).when(spy.queryManager).getData(nameB);
         client.location.addLocation(nameB);
 

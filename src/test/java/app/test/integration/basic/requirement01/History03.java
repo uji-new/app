@@ -20,13 +20,13 @@ public class History03 extends SessionTest {
         // Given
         var name = "Castellón";
         var type = ServiceType.WEATHER.name();
-        var locationMock = new LocationModel(name, 39.980, -0.033);
+        var locationMock = new LocationModel(name, 39.97, -0.05);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         client.location.addLocation(name);
         client.service.enableService(type);
 
         name = "Valencia";
-        locationMock = new LocationModel(name, 39.503, -0.405);
+        locationMock = new LocationModel(name, 39.98, -0.03);
         Mockito.doReturn(locationMock).when(spy.queryManager).getData(name);
         Mockito.doReturn(true).when(spy.weatherService).getData(locationMock);
 
