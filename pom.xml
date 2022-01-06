@@ -5,7 +5,7 @@
     <artifactId>project</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>Proyecto ATTD</name>
+    <name>Proyecto ATDD</name>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
