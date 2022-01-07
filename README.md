@@ -10,15 +10,15 @@
 ## Project hierarchy
 - Tests: [`src/test/java`](src/test/java)
 - Backend: [`src/main/java`](src/main/java)
-- Frontend: [`src/main/webapp`](https://github.com/proyecto-atdd/webapp)
+- Frontend: [`src/main/webapp`](https://github.com/proyecto-new/webapp)
 ## Recommended software
 - JDK: [OpenJDK 17](https://jdk.java.net/17)
 - IDE: [IntelliJ IDEA 2021](https://www.jetbrains.com/idea)
 ## Organization repositories
 ### Project
-- Backend: [`app`](https://github.com/proyecto-atdd/app)
-- Frontend: [`webapp`](https://github.com/proyecto-atdd/webapp)
-- Docs: [`documentation`](https://github.com/proyecto-atdd/documentation)
+- Backend: [`app`](https://github.com/proyecto-new/app)
+- Frontend: [`webapp`](https://github.com/proyecto-new/webapp)
+- Docs: [`documentation`](https://github.com/proyecto-new/documentation)
 ### Other
-- Prototype: [`spike`](https://github.com/proyecto-atdd/spike)
-- Notes: [`notes`](https://github.com/proyecto-atdd/notes)
+- Prototype: [`spike`](https://github.com/proyecto-new/spike)
+- Notes: [`notes`](https://github.com/proyecto-new/notes)
