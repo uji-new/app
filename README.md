@@ -19,6 +19,4 @@
 - Backend: [`app`](https://github.com/proyecto-new/app)
 - Frontend: [`webapp`](https://github.com/proyecto-new/webapp)
 - Docs: [`documentation`](https://github.com/proyecto-new/documentation)
-### Other
 - Prototype: [`spike`](https://github.com/proyecto-new/spike)
-- Notes: [`notes`](https://github.com/proyecto-new/notes)
